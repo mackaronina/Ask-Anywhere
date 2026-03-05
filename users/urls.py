@@ -12,5 +12,6 @@ urlpatterns = [
         path('', views.ProfileDetail.as_view(), name='profile'),
         path('update/', views.UpdateProfile.as_view(), name='update_profile'),
         path('delete/', views.DeleteProfile.as_view(), name='delete_profile')
-    ]))
+    ])),
+    path('<uuid:pk>/', views.UserDetail.as_view(), name='user_detail')
 ]

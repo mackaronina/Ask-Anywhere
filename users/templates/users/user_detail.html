@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ user_object.username }} profile</h1>
+    <p>Registered at {{ user_object.created_at|date:'d.m.Y' }}<p>
+{% endblock %}
