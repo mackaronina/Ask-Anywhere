@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load answers_tags %}
+{% load questions_tags %}
+
+{% block content %}
+    <h1>Home page</h1>
+    <p>Answer questions and ask your own on our website</p>
+    <h1>Recent questions</h1>
+    {% for question in recent.questions %}
+        {% question_card question %} <br>
+    {% endfor %}
+    <h1>Recent answers</h1>
+    {% for answer in recent.answers %}
+        {% answer_card answer %} <br>
+    {% endfor %}
+{% endblock %}

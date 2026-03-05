@@ -1,0 +1,8 @@
+{% if question.has_solution %}
+    <p>✔ Has solution</p>
+{% endif %}
+<h4><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h4>
+<p>{{ question.text|truncatechars:128 }}</p>
+<p>{{ question.get_rating }} votes</p>
+<p>{{ question.get_answers_count }} answers</p>
+<p>Asked at {{ question.created_at|date:'d.m.Y' }}<p>

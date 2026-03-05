@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Answering to <a href="{{ answer.question.get_absolute_url }}">{{ answer.question.title }}</a></h1>
+    <p>{{ answer.question.text }} </p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+{% endblock %}

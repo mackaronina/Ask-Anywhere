@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if question.has_solution %}
+        <p>✔ Has solution</p>
+    {% endif %}
+    <h1>{{ question.title }}</h1>
+    <p>{{ question.text }} </p>
+    <p>{{ question.get_rating }} votes</p>
+    <p>Asked at {{ question.created_at|date:'d.m.Y' }}<p>
+    <p>Edited at {{ question.updated_at|date:'d.m.Y' }}</p>
+    <a href="{% url 'delete_question' question.pk %}">Delete</a>
+    <a href="{% url 'update_question' question.pk %}">Edit</a>
+    <a href="{% url 'create_answer' %}?question_id={{ question.pk }}">Answer</a>
+    <h2>{{ question.get_answers_count }} answers</h2>
+    {% for answer in question.answers.all %}
+        {% if answer.is_solution %}
+            <p>✔ Marked as solution</p>
+        {% endif %}
+        <p>{{ answer.text }}</p>
+        <p>{{ answer.get_rating }} votes</p>
+        <p>Answered at {{ answer.created_at|date:'d.m.Y' }}<p><br>
+        {% if not answer.is_solution %}
+            <a href="{% url 'delete_answer' answer.pk %}">Delete</a>
+            <a href="{% url 'update_answer' answer.pk %}">Edit</a>
+            <form action="{% url 'update_answer_mark' answer.pk %}" method="post">
+                {% csrf_token %}
+                {{ mark_answer_form }}
+                <button type="submit">Mark as solution</button>
+            </form>
+        {% else %}
+            <form action="{% url 'update_answer_mark' answer.pk %}" method="post">
+                {% csrf_token %}
+                {{ unmark_answer_form }}
+                <button type="submit">Unmark as solution</button>
+            </form>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

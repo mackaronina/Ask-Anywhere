@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete {{ entity_name }}? This action cannot be undone</p>
+        <button type="submit">Confirm</button>
+    </form>
+    <button onclick="history.back();">Cancel</button>
+{% endblock %}
