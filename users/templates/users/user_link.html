@@ -1,0 +1,5 @@
+{% if not user %}
+    <p>by Anonim</p>
+{% else %}
+    <p>by <a href="{{ user.get_absolute_url }}">{{ user.username }}</a></p>
+{% endif %}
