@@ -119,6 +119,11 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'users.authentication.EmailAuthBackend',
+]
+
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = 'users:profile'
 LOGIN_URL = 'users:login'
