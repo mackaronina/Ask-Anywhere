@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, PermissionDenied
 from django.shortcuts import redirect, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, RedirectView
 
 from questions_answers.forms import CreateUpdateQuestionForm, CreateUpdateAnswerForm, MarkAnswerForm
 from questions_answers.models import Question, Answer
@@ -56,6 +56,9 @@ class UpdateQuestion(LoginRequiredMixin, UpdateView):
     model = Question
     context_object_name = 'question'
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
 
 class DeleteQuestion(LoginRequiredMixin, DeleteView):
     model = Question
@@ -65,13 +68,16 @@ class DeleteQuestion(LoginRequiredMixin, DeleteView):
         'entity_name': 'your question'
     }
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
-class RandomQuestion(View):
-    def get(self, request):
+
+class RandomQuestion(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
         random_question = Question.objects.order_by('?').first()
         if random_question is None:
-            return redirect('questions_index')
-        return redirect('question_detail', pk=random_question.pk)
+            return reverse('questions_index')
+        return random_question.get_absolute_url()
 
 
 class CreateAnswer(LoginRequiredMixin, CreateView):
@@ -80,13 +86,12 @@ class CreateAnswer(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        question = get_object_or_404(Question, id=self.request.GET.get('question_id'))
+        question = get_object_or_404(Question, pk=self.kwargs.get('question_id'))
         context['question'] = question
-        print(context)
         return context
 
     def form_valid(self, form):
-        form.instance.question = get_object_or_404(Question, id=self.request.GET.get('question_id'))
+        form.instance.question_id = self.kwargs.get('question_id')
         form.instance.user = self.request.user
         return super().form_valid(form)
 
@@ -99,8 +104,11 @@ class UpdateAnswer(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         if form.instance.is_solution:
-            raise ValidationError('Answer marked as solution cannot be edited')
+            raise ValidationError('Answer marked as solution cannot be modified')
         return super().form_valid(form)
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
 
 class DeleteAnswer(LoginRequiredMixin, DeleteView):
@@ -113,13 +121,18 @@ class DeleteAnswer(LoginRequiredMixin, DeleteView):
 
     def form_valid(self, form):
         if form.instance.is_solution:
-            raise ValidationError('Answer marked as solution cannot be deleted')
+            raise ValidationError('Answer marked as solution cannot be modified')
         return super().form_valid(form)
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
 
 class MarkAnswer(LoginRequiredMixin, View):
     def post(self, request, pk):
         answer = get_object_or_404(Answer, pk=pk)
+        if answer.question.user != request.user:
+            raise PermissionDenied()
         form = MarkAnswerForm(request.POST)
         if form.is_valid():
             answer.is_solution = form.cleaned_data.get('is_solution')

@@ -33,7 +33,7 @@ class Question(BaseModel):
         return reverse('question_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return self.title
+        return f'"{self.title}" by {self.user}'
 
 
 class Answer(BaseModel):
@@ -47,10 +47,10 @@ class Answer(BaseModel):
         return self.votes.filter(is_positive=True).count() - self.votes.filter(is_positive=False).count()
 
     def get_absolute_url(self):
-        return self.question.get_absolute_url()
+        return f'{self.question.get_absolute_url()}?answer_id={self.pk}'
 
     def __str__(self):
-        return self.text[:128]
+        return f'"{self.text[:128]}" by {self.user}'
 
 
 class VoteQuestion(BaseModel):
@@ -64,7 +64,7 @@ class VoteQuestion(BaseModel):
         return not self.is_positive
 
     def __str__(self):
-        return 'Positive vote for question' if self.is_positive else 'Negative vote for question'
+        return f'Positive vote by {self.user}' if self.is_positive else f'Negative vote by {self.user}'
 
 
 class VoteAnswer(BaseModel):
@@ -78,4 +78,4 @@ class VoteAnswer(BaseModel):
         return not self.is_positive
 
     def __str__(self):
-        return 'Positive vote for answer' if self.is_positive else 'Negative vote for answer'
+        return f'Positive vote by {self.user}' if self.is_positive else f'Negative vote by {self.user}'
