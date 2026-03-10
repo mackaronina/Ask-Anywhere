@@ -32,3 +32,18 @@ class CreateUpdateAnswerForm(forms.ModelForm):
 
 class MarkAnswerForm(forms.Form):
     is_solution = forms.BooleanField(widget=forms.HiddenInput(), required=False)
+
+
+class SearchQuestionsForm(forms.Form):
+    SORT_CHOICES = [
+        ('date', 'Creation date'),
+        ('answers', 'Answers count'),
+        ('rating', 'Rating')
+    ]
+    ORDER_CHOICES = [
+        ('desc', 'Descending'),
+        ('asc', 'Ascending')
+    ]
+    sort_by = forms.ChoiceField(label='Sort by', choices=SORT_CHOICES, widget=forms.Select(), required=False)
+    order_by = forms.ChoiceField(label='Order by', choices=ORDER_CHOICES, widget=forms.Select(), required=False)
+    has_solution = forms.BooleanField(label='Only questions with solution', required=False)

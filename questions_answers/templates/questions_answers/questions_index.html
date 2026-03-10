@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
+{% load pagination %}
 {% load questions_tags %}
 {% block content %}
     <h1>Explore questions</h1>
+    <form action="" method="get">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+    <h2>{{ questions|length }} results</h2>
     {% for question in questions %}
         {% question_card question %} <br>
     {% endfor %}
+    {% pagination_block paginator page_obj %}
 {% endblock %}

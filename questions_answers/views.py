@@ -1,11 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError, PermissionDenied
+from django.db.models import Count, Q
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, RedirectView
 
-from questions_answers.forms import CreateUpdateQuestionForm, CreateUpdateAnswerForm, MarkAnswerForm
+from questions_answers.forms import CreateUpdateQuestionForm, CreateUpdateAnswerForm, MarkAnswerForm, \
+    SearchQuestionsForm
 from questions_answers.models import Question, Answer
 
 
@@ -26,9 +28,33 @@ class QuestionsIndex(ListView):
     model = Question
     template_name = 'questions_answers/questions_index.html'
     context_object_name = 'questions'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = SearchQuestionsForm(self.request.GET)
+        return context
 
     def get_queryset(self):
-        return Question.objects.order_by('-created_at').all()
+        query = Question.objects.annotate(
+            answers_count=Count('answers'),
+            rating=Count('votes', filter=Q(votes__is_positive=True)) -
+                   Count('votes', filter=Q(votes__is_positive=False))
+        )
+        form = SearchQuestionsForm(self.request.GET)
+        if form.is_valid():
+            sort_by = form.cleaned_data['sort_by'] or 'date'
+            order_by = form.cleaned_data['order_by'] or 'desc'
+            has_solution = form.cleaned_data['has_solution']
+            if sort_by == 'date':
+                query = query.order_by('-created_at') if order_by == 'desc' else query.order_by('created_at')
+            elif sort_by == 'answers':
+                query = query.order_by('-answers_count') if order_by == 'desc' else query.order_by('answers_count')
+            elif sort_by == 'rating':
+                query = query.order_by('-rating') if order_by == 'desc' else query.order_by('rating')
+            if has_solution:
+                query = query.filter(answers__is_solution=True).distinct()
+        return query.all()
 
 
 class QuestionDetail(DetailView):
