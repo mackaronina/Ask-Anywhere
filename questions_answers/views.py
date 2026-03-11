@@ -32,7 +32,10 @@ class QuestionsIndex(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = SearchQuestionsForm(self.request.GET)
+        if len(self.request.GET) > 0:
+            context['form'] = SearchQuestionsForm(self.request.GET)
+        else:
+            context['form'] = SearchQuestionsForm()
         return context
 
     def get_queryset(self):
@@ -46,6 +49,7 @@ class QuestionsIndex(ListView):
             sort_by = form.cleaned_data['sort_by'] or 'date'
             order_by = form.cleaned_data['order_by'] or 'desc'
             has_solution = form.cleaned_data['has_solution']
+            term = form.cleaned_data['term']
             if sort_by == 'date':
                 query = query.order_by('-created_at') if order_by == 'desc' else query.order_by('created_at')
             elif sort_by == 'answers':
@@ -53,8 +57,10 @@ class QuestionsIndex(ListView):
             elif sort_by == 'rating':
                 query = query.order_by('-rating') if order_by == 'desc' else query.order_by('rating')
             if has_solution:
-                query = query.filter(answers__is_solution=True).distinct()
-        return query.all()
+                query = query.filter(answers__is_solution=True)
+            if term:
+                query = query.filter(Q(title__icontains=term) | Q(text__icontains=term))
+        return query.distinct().all()
 
 
 class QuestionDetail(DetailView):

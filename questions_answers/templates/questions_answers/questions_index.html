@@ -7,7 +7,7 @@
         {{ form.as_p }}
         <button type="submit">Search</button>
     </form>
-    <h2>{{ questions|length }} results</h2>
+    <h2>{{ paginator.count }} results</h2>
     {% for question in questions %}
         {% question_card question %} <br>
     {% endfor %}

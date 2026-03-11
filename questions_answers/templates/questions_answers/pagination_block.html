@@ -3,6 +3,9 @@
         <ul>
             {% if page_obj.has_previous %}
                 <li>
+                    <a href="?page=1">&lt;&lt;</a>
+                </li>
+                <li>
                     <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
                 </li>
             {% endif %}
@@ -20,6 +23,9 @@
             {% if page_obj.has_next %}
                 <li>
                     <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                </li>
+                <li>
+                    <a href="?page={{ paginator.num_pages }}">&gt;&gt;</a>
                 </li>
             {% endif %}
         </ul>

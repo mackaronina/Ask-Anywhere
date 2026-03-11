@@ -5,10 +5,10 @@ from questions_answers.models import Question, Answer
 
 
 class CreateUpdateQuestionForm(forms.ModelForm):
-    title = forms.CharField(min_length=5, max_length=128, label='Question title',
-                            empty_value='Enter your question here. The question must end with a question mark')
-    text = forms.CharField(min_length=5, max_length=4096, widget=forms.Textarea(), label='Question body',
-                           empty_value='Describe your question in detail so that everyone understands')
+    title = forms.CharField(min_length=5, max_length=128, label='Question title', widget=forms.TextInput(
+        attrs={'placeholder': 'Enter your question here. The question must end with a question mark'}))
+    text = forms.CharField(min_length=5, max_length=4096, label='Question body', widget=forms.Textarea(
+        attrs={'placeholder': 'Describe your question in detail so that everyone understands'}))
 
     class Meta:
         model = Question
@@ -22,8 +22,8 @@ class CreateUpdateQuestionForm(forms.ModelForm):
 
 
 class CreateUpdateAnswerForm(forms.ModelForm):
-    text = forms.CharField(min_length=5, max_length=4096, widget=forms.Textarea(), label='Answer body',
-                           empty_value='Describe your question in detail so that everyone understands')
+    text = forms.CharField(min_length=5, max_length=4096, label='Answer body', widget=forms.Textarea(
+        attrs={'placeholder': 'Write a detailed answer to the question. Avoid repeating other answers'}))
 
     class Meta:
         model = Answer
@@ -44,6 +44,10 @@ class SearchQuestionsForm(forms.Form):
         ('desc', 'Descending'),
         ('asc', 'Ascending')
     ]
-    sort_by = forms.ChoiceField(label='Sort by', choices=SORT_CHOICES, widget=forms.Select(), required=False)
-    order_by = forms.ChoiceField(label='Order by', choices=ORDER_CHOICES, widget=forms.Select(), required=False)
+    term = forms.CharField(label='', min_length=3, max_length=128, required=False,
+                           widget=forms.TextInput(attrs={'placeholder': 'Search...'}))
+    sort_by = forms.ChoiceField(label='Sort by', choices=SORT_CHOICES, widget=forms.Select(), required=False,
+                                initial='date')
+    order_by = forms.ChoiceField(label='Order by', choices=ORDER_CHOICES, widget=forms.Select(), required=False,
+                                 initial='desc')
     has_solution = forms.BooleanField(label='Only questions with solution', required=False)
