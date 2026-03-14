@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load answers_tags %}
+{% load questions_tags %}
 {% load users_tags %}
 {% block content %}
     {% if question.has_solution %}
@@ -8,6 +10,7 @@
     {% user_link question.user %}
     <p>{{ question.text }} </p>
     <p>{{ question.get_rating }} votes</p>
+    {% question_vote_block question user %}
     <p>Asked at {{ question.created_at|date:'d.m.Y' }}<p>
     <p>Edited at {{ question.updated_at|date:'d.m.Y' }}</p>
     {% if user == question.user %}
@@ -24,26 +27,9 @@
             {% user_link answer.user %}
             <p>{{ answer.text }}</p>
             <p>{{ answer.get_rating }} votes</p>
+            {% answer_vote_block answer user %}
             <p>Answered at {{ answer.created_at|date:'d.m.Y' }}<p><br>
-            {% if not answer.is_solution %}
-                {% if user == answer.user %}
-                    <a href="{% url 'delete_answer' answer.pk %}">Delete</a>
-                    <a href="{% url 'update_answer' answer.pk %}">Edit</a>
-                {% endif %}
-                {% if user == question.user %}
-                    <form action="{% url 'update_answer_mark' answer.pk %}" method="post">
-                        {% csrf_token %}
-                        {{ mark_answer_form }}
-                        <button type="submit">Mark as solution</button>
-                    </form>
-                {% endif %}
-            {% elif user == question.user %}
-                <form action="{% url 'update_answer_mark' answer.pk %}" method="post">
-                    {% csrf_token %}
-                    {{ unmark_answer_form }}
-                    <button type="submit">Unmark as solution</button>
-                </form>
-            {% endif %}
+            {% edit_answer_block question answer user %}
         </div>
     {% endfor %}
     <script>

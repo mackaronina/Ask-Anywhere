@@ -1,0 +1,26 @@
+{% if entity.user != user %}
+    {% if vote and vote.is_positive %}
+        <form action="{% url delete_route entity.pk %}" method="post">
+            {% csrf_token %}
+            <button type="submit">▲</button>
+        </form>
+    {% else %}
+        <form action="{% url create_route entity.pk %}" method="post">
+            {% csrf_token %}
+            {{ vote_up_form }}
+            <button type="submit">ᐃ</button>
+        </form>
+    {% endif %}
+    {% if vote and vote.is_negative %}
+        <form action="{% url delete_route entity.pk %}" method="post">
+            {% csrf_token %}
+            <button type="submit">▼</button>
+        </form>
+    {% else %}
+        <form action="{% url create_route entity.pk %}" method="post">
+            {% csrf_token %}
+            {{ vote_down_form }}
+            <button type="submit">ᐁ</button>
+        </form>
+    {% endif %}
+{% endif %}

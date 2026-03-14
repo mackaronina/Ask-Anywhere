@@ -1,0 +1,19 @@
+{% if not answer.is_solution %}
+    {% if user == answer.user %}
+        <a href="{% url 'delete_answer' answer.pk %}">Delete</a>
+        <a href="{% url 'update_answer' answer.pk %}">Edit</a>
+    {% endif %}
+    {% if user == question.user %}
+        <form action="{% url 'update_answer_mark' answer.pk %}" method="post">
+            {% csrf_token %}
+            {{ mark_answer_form }}
+            <button type="submit">Mark as solution</button>
+        </form>
+    {% endif %}
+{% elif user == question.user %}
+    <form action="{% url 'update_answer_mark' answer.pk %}" method="post">
+        {% csrf_token %}
+        {{ unmark_answer_form }}
+        <button type="submit">Unmark as solution</button>
+    </form>
+{% endif %}

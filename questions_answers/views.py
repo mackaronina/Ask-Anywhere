@@ -1,14 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError, PermissionDenied
+from django.db import IntegrityError
 from django.db.models import Count, Q
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
-from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, RedirectView
 
 from questions_answers.forms import CreateUpdateQuestionForm, CreateUpdateAnswerForm, MarkAnswerForm, \
-    SearchQuestionsForm
-from questions_answers.models import Question, Answer
+    SearchQuestionsForm, CreateVoteQuestionForm, CreateVoteAnswerForm
+from questions_answers.models import Question, Answer, VoteQuestion, VoteAnswer
 
 
 class Index(ListView):
@@ -32,10 +32,7 @@ class QuestionsIndex(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if len(self.request.GET) > 0:
-            context['form'] = SearchQuestionsForm(self.request.GET)
-        else:
-            context['form'] = SearchQuestionsForm()
+        context['form'] = SearchQuestionsForm(self.request.GET)
         return context
 
     def get_queryset(self):
@@ -67,10 +64,6 @@ class QuestionDetail(DetailView):
     model = Question
     template_name = 'questions_answers/question_detail.html'
     context_object_name = 'question'
-    extra_context = {
-        'mark_answer_form': MarkAnswerForm(initial={'is_solution': True}),
-        'unmark_answer_form': MarkAnswerForm(initial={'is_solution': False}),
-    }
 
 
 class CreateQuestion(LoginRequiredMixin, CreateView):
@@ -84,8 +77,8 @@ class CreateQuestion(LoginRequiredMixin, CreateView):
 
 class UpdateQuestion(LoginRequiredMixin, UpdateView):
     form_class = CreateUpdateQuestionForm
-    template_name = 'questions_answers/update_question.html'
     model = Question
+    template_name = 'questions_answers/update_question.html'
     context_object_name = 'question'
 
     def get_queryset(self):
@@ -130,8 +123,8 @@ class CreateAnswer(LoginRequiredMixin, CreateView):
 
 class UpdateAnswer(LoginRequiredMixin, UpdateView):
     form_class = CreateUpdateAnswerForm
-    template_name = 'questions_answers/update_answer.html'
     model = Answer
+    template_name = 'questions_answers/update_answer.html'
     context_object_name = 'answer'
 
     def form_valid(self, form):
@@ -160,15 +153,68 @@ class DeleteAnswer(LoginRequiredMixin, DeleteView):
         return super().get_queryset().filter(user=self.request.user)
 
 
-class MarkAnswer(LoginRequiredMixin, View):
-    def post(self, request, pk):
-        answer = get_object_or_404(Answer, pk=pk)
-        if answer.question.user != request.user:
-            raise PermissionDenied()
-        form = MarkAnswerForm(request.POST)
-        if form.is_valid():
-            answer.is_solution = form.cleaned_data.get('is_solution')
-            answer.save()
-            return redirect(answer.get_absolute_url())
-        else:
-            raise ValidationError(form.errors)
+class MarkAnswer(LoginRequiredMixin, UpdateView):
+    form_class = MarkAnswerForm
+    model = Answer
+    http_method_names = ['post']
+
+    def get_queryset(self):
+        return super().get_queryset().filter(question__user=self.request.user)
+
+
+class CreateVoteQuestion(LoginRequiredMixin, CreateView):
+    form_class = CreateVoteQuestionForm
+    http_method_names = ['post']
+
+    def form_valid(self, form):
+        form.instance.question_id = self.kwargs.get('question_id')
+        form.instance.user = self.request.user
+        if form.instance.question.user == form.instance.user:
+            raise PermissionDenied("You can't vote for yourself")
+        try:
+            return super().form_valid(form)
+        except IntegrityError:
+            vote = get_object_or_404(VoteQuestion, question_id=self.kwargs.get('question_id'), user=self.request.user)
+            vote.is_positive = form.cleaned_data['is_positive']
+            vote.save()
+            return redirect(vote.get_absolute_url())
+
+
+class DeleteVoteQuestion(LoginRequiredMixin, DeleteView):
+    model = VoteQuestion
+    http_method_names = ['post']
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(VoteQuestion, question_id=self.kwargs.get('question_id'), user=self.request.user)
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
+
+
+class CreateVoteAnswer(LoginRequiredMixin, CreateView):
+    form_class = CreateVoteAnswerForm
+    http_method_names = ['post']
+
+    def form_valid(self, form):
+        form.instance.answer_id = self.kwargs.get('answer_id')
+        form.instance.user = self.request.user
+        if form.instance.answer.user == form.instance.user:
+            raise PermissionDenied("You can't vote for yourself")
+        try:
+            return super().form_valid(form)
+        except IntegrityError:
+            vote = get_object_or_404(VoteAnswer, answer_id=self.kwargs.get('answer_id'), user=self.request.user)
+            vote.is_positive = form.cleaned_data['is_positive']
+            vote.save()
+            return redirect(vote.get_absolute_url())
+
+
+class DeleteVoteAnswer(LoginRequiredMixin, DeleteView):
+    model = VoteAnswer
+    http_method_names = ['post']
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(VoteAnswer, answer_id=self.kwargs.get('answer_id'), user=self.request.user)
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()

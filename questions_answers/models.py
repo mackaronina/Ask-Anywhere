@@ -27,10 +27,15 @@ class Question(BaseModel):
         return self.answers.count()
 
     def has_solution(self):
-        return self.answers.filter(is_solution=True).first() is not None
+        return self.answers.filter(is_solution=True).exists()
 
     def get_absolute_url(self):
         return reverse('question_detail', kwargs={'pk': self.pk})
+
+    def get_vote(self, user):
+        if not user.is_authenticated:
+            return None
+        return self.votes.filter(user=user).first()
 
     def __str__(self):
         return f'"{self.title}" by {self.user}'
@@ -49,6 +54,11 @@ class Answer(BaseModel):
     def get_absolute_url(self):
         return f'{self.question.get_absolute_url()}?answer_id={self.pk}'
 
+    def get_vote(self, user):
+        if not user.is_authenticated:
+            return None
+        return self.votes.filter(user=user).first()
+
     def __str__(self):
         return f'"{self.text[:128]}" by {self.user}'
 
@@ -56,8 +66,12 @@ class Answer(BaseModel):
 class VoteQuestion(BaseModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='votes')
     is_positive = models.BooleanField(default=True)
-    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='questions_votes', null=True,
-                             default=None)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='questions_votes')
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['question', 'user'], name='unique_vote_question')
+        ]
 
     @property
     def is_negative(self):
@@ -65,13 +79,20 @@ class VoteQuestion(BaseModel):
 
     def __str__(self):
         return f'Positive vote by {self.user}' if self.is_positive else f'Negative vote by {self.user}'
+
+    def get_absolute_url(self):
+        return self.question.get_absolute_url()
 
 
 class VoteAnswer(BaseModel):
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='votes')
     is_positive = models.BooleanField(default=True)
-    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='answers_votes', null=True,
-                             default=None)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='answers_votes')
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['answer', 'user'], name='unique_vote_answer')
+        ]
 
     @property
     def is_negative(self):
@@ -79,3 +100,6 @@ class VoteAnswer(BaseModel):
 
     def __str__(self):
         return f'Positive vote by {self.user}' if self.is_positive else f'Negative vote by {self.user}'
+
+    def get_absolute_url(self):
+        return self.answer.get_absolute_url()

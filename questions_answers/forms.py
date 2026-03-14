@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from questions_answers.models import Question, Answer
+from questions_answers.models import Question, Answer, VoteQuestion, VoteAnswer
 
 
 class CreateUpdateQuestionForm(forms.ModelForm):
@@ -30,8 +30,28 @@ class CreateUpdateAnswerForm(forms.ModelForm):
         fields = ['text']
 
 
-class MarkAnswerForm(forms.Form):
+class MarkAnswerForm(forms.ModelForm):
     is_solution = forms.BooleanField(widget=forms.HiddenInput(), required=False)
+
+    class Meta:
+        model = Answer
+        fields = ['is_solution']
+
+
+class CreateVoteQuestionForm(forms.ModelForm):
+    is_positive = forms.BooleanField(widget=forms.HiddenInput(), required=False)
+
+    class Meta:
+        model = VoteQuestion
+        fields = ['is_positive']
+
+
+class CreateVoteAnswerForm(forms.ModelForm):
+    is_positive = forms.BooleanField(widget=forms.HiddenInput(), required=False)
+
+    class Meta:
+        model = VoteAnswer
+        fields = ['is_positive']
 
 
 class SearchQuestionsForm(forms.Form):
