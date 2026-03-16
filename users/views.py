@@ -1,12 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, RedirectView, UpdateView, DeleteView, DetailView, ListView
 
 from questions_answers.models import Question, Answer
-from users.forms import LoginForm, SignupUserForm, UpdateProfileForm
+from users.forms import LoginForm, SignupUserForm, UpdateProfileForm, PasswordChangeProfileForm
 
 
 class LoginUser(LoginView):
@@ -33,6 +33,16 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class PasswordChangeProfile(PasswordChangeView):
+    form_class = PasswordChangeProfileForm
+    success_url = reverse_lazy('users:password_change_done')
+    template_name = 'users/change_password.html'
+
+
+class PasswordChangeDoneProfile(PasswordChangeDoneView):
+    template_name = 'users/change_password_done.html'
 
 
 class DeleteProfile(LoginRequiredMixin, DeleteView):
