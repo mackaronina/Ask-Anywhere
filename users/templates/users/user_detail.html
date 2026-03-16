@@ -1,5 +1,19 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'users/user_base.html' %}
+{% block user_content %}
     <h1>{{ user_object.username }} profile</h1>
-    <p>Registered at {{ user_object.created_at|date:'d.m.Y' }}<p>
+    <p>Username: {{ user_object.username }} </p>
+    {% if user_object == user %}
+        <p>E-mail: {{ user.email }}</p>
+    {% endif %}
+    <p>Total questions: {{ user_object.questions.count }}</p>
+    <p>Total answers: {{ user_object.answers.count }}</p>
+    <p>Registered at {{ user.created_at|date:'d.m.Y' }}<p>
+    {% if user_object == user %}
+        <form method="post" action="{% url 'users:logout' %}">
+            {% csrf_token %}
+            <button type="submit">Log Out</button>
+        </form>
+        <a href="{% url 'users:delete_profile' %}">Delete</a>
+        <a href="{% url 'users:update_profile' %}">Edit</a>
+    {% endif %}
 {% endblock %}

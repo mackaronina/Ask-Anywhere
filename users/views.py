@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, RedirectView, UpdateView, DeleteView, DetailView, ListView
 
+from questions_answers.models import Question, Answer
 from users.forms import LoginForm, SignupUserForm, UpdateProfileForm
 
 
@@ -19,8 +20,9 @@ class SignupUser(CreateView):
     success_url = reverse_lazy('users:login')
 
 
-class ProfileDetail(LoginRequiredMixin, TemplateView):
-    template_name = 'users/profile.html'
+class ProfileDetail(LoginRequiredMixin, RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('users:user_detail', kwargs={'pk': self.request.user.pk})
 
 
 class UpdateProfile(LoginRequiredMixin, UpdateView):
@@ -50,7 +52,32 @@ class UserDetail(DetailView):
     template_name = 'users/user_detail.html'
     context_object_name = 'user_object'
 
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user.pk == kwargs['pk']:
-            return redirect(reverse('users:profile'))
-        return super().get(request, *args, **kwargs)
+
+class UserQuestionsList(ListView):
+    model = Question
+    template_name = 'users/user_questions_list.html'
+    context_object_name = 'questions'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_object'] = get_object_or_404(get_user_model(), pk=self.kwargs.get('pk'))
+        return context
+
+    def get_queryset(self):
+        return Question.objects.filter(user_id=self.kwargs.get('pk')).order_by('-created_at').all()
+
+
+class UserAnswersList(ListView):
+    model = Answer
+    template_name = 'users/user_answers_list.html'
+    context_object_name = 'answers'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_object'] = get_object_or_404(get_user_model(), pk=self.kwargs.get('pk'))
+        return context
+
+    def get_queryset(self):
+        return Answer.objects.filter(user_id=self.kwargs.get('pk')).order_by('-created_at').all()

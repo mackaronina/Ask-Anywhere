@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <ul>
+        <li><a href="{% url 'users:user_detail' user_object.pk %}">Profile</a></li>
+        <li><a href="{% url 'users:user_questions_list' user_object.pk %}">Questions</a></li>
+        <li><a href="{% url 'users:user_answers_list' user_object.pk %}">Answers</a></li>
+    </ul>
+    {% block user_content %}
+    {% endblock %}
+{% endblock %}

@@ -13,5 +13,9 @@ urlpatterns = [
         path('update/', views.UpdateProfile.as_view(), name='update_profile'),
         path('delete/', views.DeleteProfile.as_view(), name='delete_profile')
     ])),
-    path('<uuid:pk>/', views.UserDetail.as_view(), name='user_detail')
+    path('<uuid:pk>/', include([
+        path('', views.UserDetail.as_view(), name='user_detail'),
+        path('questions/', views.UserQuestionsList.as_view(), name='user_questions_list'),
+        path('answers/', views.UserAnswersList.as_view(), name='user_answers_list'),
+    ]))
 ]

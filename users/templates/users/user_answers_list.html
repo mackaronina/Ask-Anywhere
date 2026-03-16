@@ -1,0 +1,11 @@
+{% extends 'users/user_base.html' %}
+{% load answers_tags %}
+{% load pagination_tags %}
+{% block user_content %}
+    <h1>Answers by {{ user_object.username }}</h1>
+    <h2>{{ paginator.count }} results</h2>
+    {% for answer in answers %}
+        {% answer_card answer %} <br>
+    {% endfor %}
+    {% pagination_block paginator page_obj %}
+{% endblock %}
