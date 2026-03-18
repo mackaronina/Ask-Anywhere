@@ -23,9 +23,6 @@ class Question(BaseModel):
     def get_rating(self):
         return self.votes.filter(is_positive=True).count() - self.votes.filter(is_positive=False).count()
 
-    def get_answers_count(self):
-        return self.answers.count()
-
     def has_solution(self):
         return self.answers.filter(is_solution=True).exists()
 

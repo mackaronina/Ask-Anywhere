@@ -18,7 +18,7 @@
         <a href="{% url 'update_question' question.pk %}">Edit</a>
     {% endif %}
     <a href="{% url 'create_answer' question.pk %}">Answer</a>
-    <h2>{{ question.get_answers_count }} answers</h2>
+    <h2>{{ question.answers.count }} answers</h2>
     {% for answer in question.answers.all %}
         <div id="{{ answer.pk }}">
             {% if answer.is_solution %}

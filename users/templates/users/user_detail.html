@@ -1,6 +1,7 @@
 {% extends 'users/user_base.html' %}
+
 {% block user_content %}
-    <h1>{{ user_object.username }} profile</h1>
+    <h1>{{ user_object.username }}'s profile</h1>
     <p>Username: {{ user_object.username }} </p>
     {% if user_object == user %}
         <p>E-mail: {{ user.email }}</p>
@@ -16,5 +17,6 @@
         <a href="{% url 'users:delete_profile' %}">Delete</a>
         <a href="{% url 'users:update_profile' %}">Edit</a>
         <a href="{% url 'users:password_change' %}">Change password</a>
+        <a href="{% url 'users:password_reset' %}">Reset password</a>
     {% endif %}
 {% endblock %}

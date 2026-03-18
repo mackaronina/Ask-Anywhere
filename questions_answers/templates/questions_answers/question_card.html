@@ -6,5 +6,5 @@
 {% user_link question.user %}
 <p>{{ question.text|truncatechars:128 }}</p>
 <p>{{ question.get_rating }} votes</p>
-<p>{{ question.get_answers_count }} answers</p>
+<p>{{ question.answers.count }} answers</p>
 <p>Asked at {{ question.created_at|date:'d.m.Y' }}<p>

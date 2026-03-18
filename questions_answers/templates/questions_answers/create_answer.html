@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
     <h1>Answering to <a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h1>
     <p>{{ question.text }} </p>
