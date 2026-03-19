@@ -3,6 +3,7 @@ import uuid
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from martor.models import MartorField
 
 
 class BaseModel(models.Model):
@@ -16,7 +17,7 @@ class BaseModel(models.Model):
 
 class Question(BaseModel):
     title = models.CharField(max_length=128)
-    text = models.CharField(max_length=4096)
+    text = MartorField()
     user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='questions', null=True,
                              default=None)
 
@@ -40,7 +41,7 @@ class Question(BaseModel):
 
 class Answer(BaseModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
-    text = models.CharField(max_length=4096)
+    text = MartorField()
     is_solution = models.BooleanField(default=False)
     user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='answers', null=True,
                              default=None)

@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'questions_answers',
     'users',
-    'debug_toolbar'
+    'debug_toolbar',
+    'martor'
 ]
 
 MIDDLEWARE = [
@@ -117,7 +118,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 INTERNAL_IPS = [
     '127.0.0.1',
@@ -140,3 +144,8 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = 'users:profile'
 LOGIN_URL = 'users:login'
 LOGOUT_REDIRECT_URL = 'index'
+
+MARTOR_THEME = 'bootstrap'
+CSRF_COOKIE_HTTPONLY = False
+# MARTOR_IMGUR_CLIENT_ID = 'your-imgur-client-id'
+# MARTOR_IMGUR_API_KEY = 'your-imgur-api-key'

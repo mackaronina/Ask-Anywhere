@@ -1,8 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'markdown_base.html' %}
+{% load martortags %}
 
 {% block content %}
     <h1>Answering to <a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h1>
-    <p>{{ question.text }} </p>
+    <p>{{ question.text|safe_markdown }} </p>
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}

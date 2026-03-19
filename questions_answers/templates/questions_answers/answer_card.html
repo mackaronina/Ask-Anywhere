@@ -1,8 +1,9 @@
+{% load martortags %}
 {% load users_tags %}
 {% if answer.is_solution %}
     <p>✔ Marked as solution</p>
 {% endif %}
 {% user_link answer.user %}
-<p><a href="{{ answer.get_absolute_url }}">{{ answer.text|truncatechars:128 }}</a></p>
+<p><a href="{{ answer.get_absolute_url }}">{{ answer.text|safe_markdown|striptags|truncatechars:128 }}</a></p>
 <p>{{ answer.get_rating }} votes</p>
 <p>Answered at {{ answer.created_at|date:'d.m.Y' }}<p>

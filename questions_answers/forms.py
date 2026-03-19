@@ -1,5 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from martor.fields import MartorFormField
+from martor.widgets import MartorWidget
 
 from questions_answers.models import Question, Answer, VoteQuestion, VoteAnswer
 
@@ -7,7 +9,7 @@ from questions_answers.models import Question, Answer, VoteQuestion, VoteAnswer
 class CreateUpdateQuestionForm(forms.ModelForm):
     title = forms.CharField(min_length=5, max_length=128, label='Question title', widget=forms.TextInput(
         attrs={'placeholder': 'Enter your question here. The question must end with a question mark'}))
-    text = forms.CharField(min_length=5, max_length=4096, label='Question body', widget=forms.Textarea(
+    text = MartorFormField(min_length=5, max_length=4096, label='Question body', widget=MartorWidget(
         attrs={'placeholder': 'Describe your question in detail so that everyone understands'}))
 
     class Meta:
@@ -22,7 +24,7 @@ class CreateUpdateQuestionForm(forms.ModelForm):
 
 
 class CreateUpdateAnswerForm(forms.ModelForm):
-    text = forms.CharField(min_length=5, max_length=4096, label='Answer body', widget=forms.Textarea(
+    text = MartorFormField(min_length=5, max_length=4096, label='Answer body', widget=MartorWidget(
         attrs={'placeholder': 'Write a detailed answer to the question. Avoid repeating other answers'}))
 
     class Meta:

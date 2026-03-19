@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('questions_answers.urls')),
     path('users/', include('users.urls', namespace='users')),
-    path('__debug__/', include('debug_toolbar.urls'))
+    path('__debug__/', include('debug_toolbar.urls')),
+    path('martor/', include('martor.urls'))
 ]

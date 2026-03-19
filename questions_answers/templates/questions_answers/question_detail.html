@@ -1,4 +1,5 @@
-{% extends 'base.html' %}
+{% extends 'markdown_base.html' %}
+{% load martortags %}
 {% load answers_tags %}
 {% load questions_tags %}
 {% load users_tags %}
@@ -8,7 +9,7 @@
     {% endif %}
     <h1>{{ question.title }}</h1>
     {% user_link question.user %}
-    <p>{{ question.text }} </p>
+    <p>{{ question.text|safe_markdown }} </p>
     <p>{{ question.get_rating }} votes</p>
     {% question_vote_block question user %}
     <p>Asked at {{ question.created_at|date:'d.m.Y' }}<p>
@@ -25,7 +26,7 @@
                 <p>✔ Marked as solution</p>
             {% endif %}
             {% user_link answer.user %}
-            <p>{{ answer.text }}</p>
+            <p>{{ answer.text|safe_markdown }}</p>
             <p>{{ answer.get_rating }} votes</p>
             {% answer_vote_block answer user %}
             <p>Answered at {{ answer.created_at|date:'d.m.Y' }}<p><br>
