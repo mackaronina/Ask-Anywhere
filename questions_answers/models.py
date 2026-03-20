@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from martor.models import MartorField
+from taggit.managers import TaggableManager
+from taggit.models import GenericUUIDTaggedItemBase, TaggedItemBase
 
 
 class BaseModel(models.Model):
@@ -15,11 +17,16 @@ class BaseModel(models.Model):
         abstract = True
 
 
+class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
+    pass
+
+
 class Question(BaseModel):
     title = models.CharField(max_length=128)
     text = MartorField()
     user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='questions', null=True,
                              default=None)
+    tags = TaggableManager(related_name='questions', through=UUIDTaggedItem)
 
     def get_rating(self):
         return self.votes.filter(is_positive=True).count() - self.votes.filter(is_positive=False).count()

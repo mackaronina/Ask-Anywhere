@@ -1,3 +1,4 @@
+{% load questions_tags %}
 {% load martortags %}
 {% load users_tags %}
 {% if question.has_solution %}
@@ -8,4 +9,5 @@
 <p>{{ question.text|safe_markdown|striptags|truncatechars:128 }}</p>
 <p>{{ question.get_rating }} votes</p>
 <p>{{ question.answers.count }} answers</p>
+{% question_tagging_block question %}
 <p>Asked at {{ question.created_at|date:'d.m.Y' }}<p>

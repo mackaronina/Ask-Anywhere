@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'questions_answers',
     'users',
     'debug_toolbar',
-    'martor'
+    'martor',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,29 @@ LOGIN_URL = 'users:login'
 LOGOUT_REDIRECT_URL = 'index'
 
 MARTOR_THEME = 'bootstrap'
+MARTOR_ENABLE_CONFIGS = {
+    'emoji': 'false',
+    'imgur': 'false',
+    'mention': 'false',
+    'jquery': 'true',
+    'living': 'false',
+    'spellcheck': 'false',
+    'hljs': 'true',
+}
+MARTOR_TOOLBAR_BUTTONS = [
+    'bold',
+    'italic',
+    'horizontal',
+    'heading',
+    'pre-code',
+    'blockquote',
+    'unordered-list',
+    'ordered-list',
+    'link',
+    'image-link',
+    'toggle-maximize',
+    'help'
+]
 CSRF_COOKIE_HTTPONLY = False
-# MARTOR_IMGUR_CLIENT_ID = 'your-imgur-client-id'
-# MARTOR_IMGUR_API_KEY = 'your-imgur-api-key'
+
+TAGGIT_CASE_INSENSITIVE = True

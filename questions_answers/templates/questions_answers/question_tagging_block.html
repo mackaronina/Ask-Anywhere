@@ -1,0 +1,3 @@
+{% for tag in tags %}
+    <a href="{% url 'questions_index' %}?tags={{ tag.name }}">{{ tag.name }}</a>
+{% endfor %}

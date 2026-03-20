@@ -21,3 +21,10 @@ def question_vote_block(question, user):
         'delete_route': 'delete_vote_question',
         'create_route': 'create_vote_question',
     }
+
+
+@register.inclusion_tag('questions_answers/question_tagging_block.html')
+def question_tagging_block(question):
+    return {
+        'tags': question.tags.all(),
+    }

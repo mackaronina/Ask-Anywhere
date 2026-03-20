@@ -47,6 +47,7 @@ class QuestionsIndex(ListView):
             order_by = form.cleaned_data['order_by'] or 'desc'
             has_solution = form.cleaned_data['has_solution']
             term = form.cleaned_data['term']
+            tags = form.cleaned_data['tags']
             if sort_by == 'date':
                 query = query.order_by('-created_at') if order_by == 'desc' else query.order_by('created_at')
             elif sort_by == 'answers':
@@ -57,6 +58,8 @@ class QuestionsIndex(ListView):
                 query = query.filter(answers__is_solution=True)
             if term:
                 query = query.filter(Q(title__icontains=term) | Q(text__icontains=term))
+            if tags:
+                query = query.filter(tags__name__in=tags)
         return query.distinct().all()
 
 

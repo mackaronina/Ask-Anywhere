@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from martor.fields import MartorFormField
 from martor.widgets import MartorWidget
+from taggit.forms import TagField, TagWidget
 
 from questions_answers.models import Question, Answer, VoteQuestion, VoteAnswer
 
@@ -9,12 +10,14 @@ from questions_answers.models import Question, Answer, VoteQuestion, VoteAnswer
 class CreateUpdateQuestionForm(forms.ModelForm):
     title = forms.CharField(min_length=5, max_length=128, label='Question title', widget=forms.TextInput(
         attrs={'placeholder': 'Enter your question here. The question must end with a question mark'}))
-    text = MartorFormField(min_length=5, max_length=4096, label='Question body', widget=MartorWidget(
+    text = MartorFormField(min_length=5, max_length=8192, label='Question body', widget=MartorWidget(
         attrs={'placeholder': 'Describe your question in detail so that everyone understands'}))
+    tags = TagField(required=False, max_length=128, label='Tags', widget=TagWidget(
+        attrs={'placeholder': 'Provide a comma-separated list of tags (optional)'}))
 
     class Meta:
         model = Question
-        fields = ['title', 'text']
+        fields = ['title', 'text', 'tags']
 
     def clean_title(self):
         title = self.cleaned_data['title']
@@ -24,7 +27,7 @@ class CreateUpdateQuestionForm(forms.ModelForm):
 
 
 class CreateUpdateAnswerForm(forms.ModelForm):
-    text = MartorFormField(min_length=5, max_length=4096, label='Answer body', widget=MartorWidget(
+    text = MartorFormField(min_length=5, max_length=8192, label='Answer body', widget=MartorWidget(
         attrs={'placeholder': 'Write a detailed answer to the question. Avoid repeating other answers'}))
 
     class Meta:
@@ -72,4 +75,6 @@ class SearchQuestionsForm(forms.Form):
                                 initial='date')
     order_by = forms.ChoiceField(label='Order by', choices=ORDER_CHOICES, widget=forms.Select(), required=False,
                                  initial='desc')
+    tags = TagField(required=False, max_length=128, label='Tags', widget=TagWidget(
+        attrs={'placeholder': 'Comma-separated list of tags to search'}))
     has_solution = forms.BooleanField(label='Only questions with solution', required=False)

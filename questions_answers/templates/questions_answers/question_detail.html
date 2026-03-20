@@ -12,6 +12,7 @@
     <p>{{ question.text|safe_markdown }} </p>
     <p>{{ question.get_rating }} votes</p>
     {% question_vote_block question user %}
+    {% question_tagging_block question %}
     <p>Asked at {{ question.created_at|date:'d.m.Y' }}<p>
     <p>Edited at {{ question.updated_at|date:'d.m.Y' }}</p>
     {% if user == question.user %}
