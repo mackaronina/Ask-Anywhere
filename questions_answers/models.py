@@ -53,6 +53,9 @@ class Answer(BaseModel):
     user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='answers', null=True,
                              default=None)
 
+    class Meta:
+        ordering = ['-is_solution', '-created_at']
+
     def get_rating(self):
         return self.votes.filter(is_positive=True).count() - self.votes.filter(is_positive=False).count()
 
