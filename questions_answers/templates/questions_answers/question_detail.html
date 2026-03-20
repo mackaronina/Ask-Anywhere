@@ -34,12 +34,19 @@
             {% edit_answer_block question answer user %}
         </div>
     {% endfor %}
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const answer_id = params.get('answer_id');
-        if (answer_id) {
-            const answer = document.getElementById(answer_id);
-            answer.scrollIntoView();
-        }
-    </script>
+    {% block javascript %}
+        {{ block.super }}
+        <script>
+            const params = new URLSearchParams(window.location.search);
+            const answer_id = params.get('answer_id');
+            if (answer_id) {
+                const answer = document.getElementById(answer_id);
+                answer.scrollIntoView({
+                    behavior: 'instant',
+                    block: 'center',
+                    inline: 'center'
+                });
+            }
+        </script>
+    {% endblock %}
 {% endblock %}
