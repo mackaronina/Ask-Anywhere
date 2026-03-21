@@ -129,12 +129,12 @@ class CreateAnswer(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        question = get_object_or_404(Question, pk=self.kwargs.get('question_id'))
+        question = get_object_or_404(Question, pk=self.kwargs.get('pk'))
         context['question'] = question
         return context
 
     def form_valid(self, form):
-        form.instance.question_id = self.kwargs.get('question_id')
+        form.instance.question_id = self.kwargs.get('pk')
         form.instance.user = self.request.user
         return super().form_valid(form)
 
@@ -185,14 +185,14 @@ class CreateVoteQuestion(LoginRequiredMixin, CreateView):
     http_method_names = ['post']
 
     def form_valid(self, form):
-        form.instance.question_id = self.kwargs.get('question_id')
+        form.instance.question_id = self.kwargs.get('pk')
         form.instance.user = self.request.user
         if form.instance.question.user == form.instance.user:
             raise PermissionDenied("You can't vote for yourself")
         try:
             return super().form_valid(form)
         except IntegrityError:
-            vote = get_object_or_404(VoteQuestion, question_id=self.kwargs.get('question_id'), user=self.request.user)
+            vote = get_object_or_404(VoteQuestion, question_id=self.kwargs.get('pk'), user=self.request.user)
             vote.is_positive = form.cleaned_data['is_positive']
             vote.save()
             return redirect(vote.get_absolute_url())
@@ -203,7 +203,7 @@ class DeleteVoteQuestion(LoginRequiredMixin, DeleteView):
     http_method_names = ['post']
 
     def get_object(self, queryset=None):
-        return get_object_or_404(VoteQuestion, question_id=self.kwargs.get('question_id'), user=self.request.user)
+        return get_object_or_404(VoteQuestion, question_id=self.kwargs.get('pk'), user=self.request.user)
 
     def get_success_url(self):
         return self.object.get_absolute_url()
@@ -214,14 +214,14 @@ class CreateVoteAnswer(LoginRequiredMixin, CreateView):
     http_method_names = ['post']
 
     def form_valid(self, form):
-        form.instance.answer_id = self.kwargs.get('answer_id')
+        form.instance.answer_id = self.kwargs.get('pk')
         form.instance.user = self.request.user
         if form.instance.answer.user == form.instance.user:
             raise PermissionDenied("You can't vote for yourself")
         try:
             return super().form_valid(form)
         except IntegrityError:
-            vote = get_object_or_404(VoteAnswer, answer_id=self.kwargs.get('answer_id'), user=self.request.user)
+            vote = get_object_or_404(VoteAnswer, answer_id=self.kwargs.get('pk'), user=self.request.user)
             vote.is_positive = form.cleaned_data['is_positive']
             vote.save()
             return redirect(vote.get_absolute_url())
@@ -232,7 +232,7 @@ class DeleteVoteAnswer(LoginRequiredMixin, DeleteView):
     http_method_names = ['post']
 
     def get_object(self, queryset=None):
-        return get_object_or_404(VoteAnswer, answer_id=self.kwargs.get('answer_id'), user=self.request.user)
+        return get_object_or_404(VoteAnswer, answer_id=self.kwargs.get('pk'), user=self.request.user)
 
     def get_success_url(self):
         return self.object.get_absolute_url()
