@@ -1,14 +1,19 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError, PermissionDenied
 from django.db import IntegrityError
 from django.db.models import Count, Q
 from django.shortcuts import redirect, get_object_or_404
+from django.template.defaultfilters import striptags
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, RedirectView
+from martor.templatetags.martortags import safe_markdown
 
+from AskAnywhere import settings
 from questions_answers.forms import CreateUpdateQuestionForm, CreateUpdateAnswerForm, MarkAnswerForm, \
     SearchQuestionsForm, CreateVoteQuestionForm, CreateVoteAnswerForm
 from questions_answers.models import Question, Answer, VoteQuestion, VoteAnswer
+from questions_answers.utils import generate_ai_answer_text
 
 
 class Index(ListView):
@@ -75,7 +80,17 @@ class CreateQuestion(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        if settings.AI_HELPER_ENABLED:
+            try:
+                question_text = striptags(safe_markdown(self.object.text))
+                answer_text = generate_ai_answer_text(self.object.title, question_text)
+                ai_user = get_user_model().objects.get(username=settings.AI_HELPER_USERNAME)
+                answer = Answer(text=answer_text, user=ai_user, question=self.object)
+                answer.save()
+            except:
+                pass
+        return response
 
 
 class UpdateQuestion(LoginRequiredMixin, UpdateView):
