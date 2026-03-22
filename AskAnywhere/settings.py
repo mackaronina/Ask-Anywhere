@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR)
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -136,6 +136,7 @@ AUTHENTICATION_BACKENDS = [
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -180,3 +181,5 @@ CLOUDFLARE_API_KEY = os.getenv('CLOUDFLARE_API_KEY')
 CLOUDFLARE_ACCOUNT_ID = os.getenv('CLOUDFLARE_ACCOUNT_ID')
 CLOUDFLARE_MODEL_NAME = '@cf/google/gemma-3-12b-it'
 CLOUDFLARE_TIMEOUT_SECONDS = 5
+
+EMAIL_CONFIRMATION_ENABLED = True
