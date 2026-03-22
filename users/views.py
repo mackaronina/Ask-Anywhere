@@ -37,6 +37,7 @@ class SignupUser(CreateView):
             message = render_to_string('users/registration_confirmation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
+                'site_name': current_site.name,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': email_confirmation_token.make_token(user),
                 'protocol': self.request.scheme
