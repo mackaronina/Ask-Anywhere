@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
+from django.core.validators import FileExtensionValidator
 
 
 class LoginForm(AuthenticationForm):
@@ -27,7 +28,14 @@ class SignupUserForm(UserCreationForm):
 
 class UpdateProfileForm(forms.ModelForm):
     username = forms.CharField(label='Username')
-    email = forms.EmailField(disabled=True, label='E-mail')
+    email = forms.EmailField(label='E-mail', disabled=True)
+    photo = forms.ImageField(
+        label='Profile avatar',
+        required=False,
+        validators=[FileExtensionValidator(
+            allowed_extensions=['png', 'jpg', 'jpeg', 'gif', 'webp']
+        )]
+    )
 
     class Meta:
         model = get_user_model()

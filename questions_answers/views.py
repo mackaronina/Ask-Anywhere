@@ -5,6 +5,7 @@ from django.db import IntegrityError
 from django.db.models import Count, Q
 from django.shortcuts import redirect, get_object_or_404
 from django.template.defaultfilters import striptags
+from django.templatetags.static import static
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, RedirectView
 from martor.templatetags.martortags import safe_markdown
@@ -83,13 +84,19 @@ class CreateQuestion(LoginRequiredMixin, CreateView):
         response = super().form_valid(form)
         if settings.AI_HELPER_ENABLED:
             try:
+                user_model = get_user_model()
                 question_text = striptags(safe_markdown(self.object.text))
                 answer_text = generate_ai_answer_text(self.object.title, question_text)
-                ai_user = get_user_model().objects.get(username=settings.AI_HELPER_USERNAME)
+                try:
+                    ai_user = user_model.objects.get(username=settings.AI_HELPER_USERNAME)
+                except user_model.DoesNotExist:
+                    ai_user = user_model(username=settings.AI_HELPER_USERNAME,
+                                         photo_url=static('users/images/robot.png'), is_active=False)
+                    ai_user.save()
                 answer = Answer(text=answer_text, user=ai_user, question=self.object)
                 answer.save()
-            except:
-                pass
+            except Exception as e:
+                print(e)
         return response
 
 

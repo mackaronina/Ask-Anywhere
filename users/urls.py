@@ -20,6 +20,7 @@ urlpatterns = [
     path('profile/', include([
         path('', views.ProfileDetail.as_view(), name='profile'),
         path('update/', views.UpdateProfile.as_view(), name='update_profile'),
+        path('update/reset-avatar/', views.ResetAvatarProfile.as_view(), name='reset_avatar_profile'),
         path('delete/', views.DeleteProfile.as_view(), name='delete_profile')
     ])),
     path('<uuid:pk>/', include([

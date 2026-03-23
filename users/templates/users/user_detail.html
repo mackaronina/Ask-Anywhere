@@ -2,6 +2,13 @@
 
 {% block user_content %}
     <h1>{{ user_object.username }}'s profile</h1>
+    <img src="{{ user_object.photo_url }}" width="200" height="200" alt="profile pic">
+    {% if user_object == user %}
+        <form method="post" action="{% url 'users:reset_avatar_profile' %}">
+            {% csrf_token %}
+            <button type="submit">Reset avatar</button>
+        </form>
+    {% endif %}
     <p>Username: {{ user_object.username }} </p>
     {% if user_object == user %}
         <p>E-mail: {{ user.email }}</p>
@@ -17,6 +24,5 @@
         <a href="{% url 'users:delete_profile' %}">Delete</a>
         <a href="{% url 'users:update_profile' %}">Edit</a>
         <a href="{% url 'users:password_change' %}">Change password</a>
-        <a href="{% url 'users:password_reset' %}">Reset password</a>
     {% endif %}
 {% endblock %}

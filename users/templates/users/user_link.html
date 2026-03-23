@@ -1,5 +1,8 @@
+{% load static %}
 {% if not user %}
     <p>by Anonim</p>
+    <img src="{% static 'users/images/default.png' %}" width="40" height="40" alt="profile pic">
 {% else %}
     <p>by <a href="{{ user.get_absolute_url }}">{{ user.username }}</a></p>
+    <img src="{{ user.photo_url }}" width="40" height="40" alt="profile pic">
 {% endif %}

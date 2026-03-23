@@ -4,7 +4,7 @@ from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordRes
     PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes, force_str
@@ -16,6 +16,7 @@ from AskAnywhere import settings
 from questions_answers.models import Question, Answer
 from users.forms import LoginForm, SignupUserForm, UpdateProfileForm, PasswordChangeProfileForm
 from users.tokens import email_confirmation_token
+from users.utils import upload_image_to_imgbb
 
 
 class LoginUser(LoginView):
@@ -80,6 +81,19 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def form_valid(self, form):
+        if form.cleaned_data['photo']:
+            photo_url = upload_image_to_imgbb(form.cleaned_data['photo'])
+            form.instance.photo_url = photo_url
+        return super().form_valid(form)
+
+
+class ResetAvatarProfile(LoginRequiredMixin, View):
+    def post(self, request):
+        self.request.user.photo_url = get_user_model()._meta.get_field('photo_url').get_default()
+        self.request.user.save()
+        return redirect('users:profile')
 
 
 class PasswordChange(PasswordChangeView):
