@@ -10,4 +10,4 @@
 <p>{{ question.get_rating }} votes</p>
 <p>{{ question.answers.count }} answers</p>
 {% question_tagging_block question %}
-<p>Asked at {{ question.created_at|date:'d.m.Y' }}<p>
+<p>Asked at {{ question.created_at|date:'d.m.Y H:i' }}<p>

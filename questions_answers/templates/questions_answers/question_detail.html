@@ -13,8 +13,8 @@
     <p>{{ question.get_rating }} votes</p>
     {% question_vote_block question user %}
     {% question_tagging_block question %}
-    <p>Asked at {{ question.created_at|date:'d.m.Y' }}<p>
-    <p>Edited at {{ question.updated_at|date:'d.m.Y' }}</p>
+    <p>Asked at {{ question.created_at|date:'d.m.Y H:i' }}<p>
+    <p>Edited at {{ question.updated_at|date:'d.m.Y H:i' }}</p>
     {% if user == question.user %}
         <a href="{% url 'delete_question' question.pk %}">Delete</a>
         <a href="{% url 'update_question' question.pk %}">Edit</a>
@@ -30,7 +30,7 @@
             <p>{{ answer.text|safe_markdown }}</p>
             <p>{{ answer.get_rating }} votes</p>
             {% answer_vote_block answer user %}
-            <p>Answered at {{ answer.created_at|date:'d.m.Y' }}<p><br>
+            <p>Answered at {{ answer.created_at|date:'d.m.Y H:i' }}<p>
             {% edit_answer_block question answer user %}
         </div>
     {% endfor %}
