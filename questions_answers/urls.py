@@ -1,6 +1,7 @@
 from django.urls import path, include
 
 from questions_answers import views
+from questions_answers.models import Question, Answer
 from questions_answers.views import RandomQuestion, CreateQuestion
 
 urlpatterns = [
@@ -13,8 +14,8 @@ urlpatterns = [
             path('', views.QuestionDetail.as_view(), name='question_detail'),
             path('update/', views.UpdateQuestion.as_view(), name='update_question'),
             path('delete/', views.DeleteQuestion.as_view(), name='delete_question'),
-            path('votes/create/', views.CreateVoteQuestion.as_view(), name='create_vote_question'),
-            path('votes/delete/', views.DeleteVoteQuestion.as_view(), name='delete_vote_question'),
+            path('votes/create/', views.CreateVote.as_view(vote_model=Question), name='create_vote_question'),
+            path('votes/delete/', views.DeleteVote.as_view(), name='delete_vote_question'),
             path('answers/create/', views.CreateAnswer.as_view(), name='create_answer'),
         ]))
     ])),
@@ -22,7 +23,7 @@ urlpatterns = [
         path('update/', views.UpdateAnswer.as_view(), name='update_answer'),
         path('update/mark/', views.MarkAnswer.as_view(), name='update_answer_mark'),
         path('delete/', views.DeleteAnswer.as_view(), name='delete_answer'),
-        path('votes/create/', views.CreateVoteAnswer.as_view(), name='create_vote_answer'),
-        path('votes/delete/', views.DeleteVoteAnswer.as_view(), name='delete_vote_answer'),
+        path('votes/create/', views.CreateVote.as_view(vote_model=Answer), name='create_vote_answer'),
+        path('votes/delete/', views.DeleteVote.as_view(), name='delete_vote_answer'),
     ]))
 ]

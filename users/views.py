@@ -155,7 +155,7 @@ class UserQuestionsList(ListView):
         return context
 
     def get_queryset(self):
-        return Question.objects.filter(user_id=self.kwargs.get('pk')).order_by('-created_at').all()
+        return Question.objects.filter(user_id=self.kwargs.get('pk')).order_by('-created_at').related_for_card()
 
 
 class UserAnswersList(ListView):
@@ -170,4 +170,4 @@ class UserAnswersList(ListView):
         return context
 
     def get_queryset(self):
-        return Answer.objects.filter(user_id=self.kwargs.get('pk')).order_by('-created_at').all()
+        return Answer.objects.filter(user_id=self.kwargs.get('pk')).order_by('-created_at').related_for_card()

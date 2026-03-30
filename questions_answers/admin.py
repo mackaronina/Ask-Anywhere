@@ -1,8 +1,7 @@
 from django.contrib import admin
 
-from questions_answers.models import Question, Answer, VoteAnswer, VoteQuestion
+from questions_answers.models import Question, Answer, Vote
 
 admin.site.register(Question)
 admin.site.register(Answer)
-admin.site.register(VoteAnswer)
-admin.site.register(VoteQuestion)
+admin.site.register(Vote)

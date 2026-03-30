@@ -4,7 +4,7 @@ from martor.fields import MartorFormField
 from martor.widgets import MartorWidget
 from taggit.forms import TagField, TagWidget
 
-from questions_answers.models import Question, Answer, VoteQuestion, VoteAnswer
+from questions_answers.models import Question, Answer, Vote
 
 
 class CreateUpdateQuestionForm(forms.ModelForm):
@@ -43,19 +43,11 @@ class MarkAnswerForm(forms.ModelForm):
         fields = ['is_solution']
 
 
-class CreateVoteQuestionForm(forms.ModelForm):
+class CreateVoteForm(forms.ModelForm):
     is_positive = forms.BooleanField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
-        model = VoteQuestion
-        fields = ['is_positive']
-
-
-class CreateVoteAnswerForm(forms.ModelForm):
-    is_positive = forms.BooleanField(widget=forms.HiddenInput(), required=False)
-
-    class Meta:
-        model = VoteAnswer
+        model = Vote
         fields = ['is_positive']
 
 

@@ -1,6 +1,6 @@
 from django import template
 
-from questions_answers.forms import CreateVoteQuestionForm
+from questions_answers.forms import CreateVoteForm
 
 register = template.Library()
 
@@ -16,8 +16,8 @@ def question_vote_block(question, user):
         'entity': question,
         'user': user,
         'vote': question.get_vote(user),
-        'vote_up_form': CreateVoteQuestionForm(initial={'is_positive': True}),
-        'vote_down_form': CreateVoteQuestionForm(initial={'is_positive': False}),
+        'vote_up_form': CreateVoteForm(initial={'is_positive': True}),
+        'vote_down_form': CreateVoteForm(initial={'is_positive': False}),
         'delete_route': 'delete_vote_question',
         'create_route': 'create_vote_question',
     }
