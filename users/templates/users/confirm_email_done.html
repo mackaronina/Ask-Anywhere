@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>Your email has been successfully verified. You can now log in to your account</p>
-    <a href="{% url 'users:login' %}">To login</a>
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-4">
+            <div class="card p-5 text-center">
+                <h2 class="page-title mt-3 mb-2" style="font-size:1.4rem;">Email verified!</h2>
+                <p class="text-muted mb-4" style="font-size:0.9rem;">Your email has been verified. You can now log
+                    in.</p>
+                <a href="{% url 'users:login' %}" class="btn btn-primary px-4">Log in</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

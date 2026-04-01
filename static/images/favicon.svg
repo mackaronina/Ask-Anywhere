@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background -->
+  <rect width="200" height="200" rx="40" fill="#F97316"/>
+  <!-- Speech bubble body -->
+  <rect x="28" y="30" width="144" height="100" rx="18" fill="white"/>
+  <!-- Bubble tail -->
+  <polygon points="52,128 36,158 80,128" fill="white"/>
+  <!-- Question mark dot -->
+  <circle cx="100" cy="104" r="8" fill="#F97316"/>
+  <!-- Question mark arc -->
+  <path d="M78 62 Q78 44 100 44 Q122 44 122 62 Q122 76 110 82 Q104 85 100 94" fill="none" stroke="#F97316" stroke-width="12" stroke-linecap="round"/>
+  <!-- Small answer bubble -->
+  <rect x="100" y="145" width="80" height="44" rx="12" fill="white" opacity="0.35"/>
+  <!-- Dots in answer bubble -->
+  <circle cx="120" cy="167" r="4" fill="white"/>
+  <circle cx="140" cy="167" r="4" fill="white"/>
+  <circle cx="160" cy="167" r="4" fill="white"/>
+</svg>

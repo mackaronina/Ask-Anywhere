@@ -1,0 +1,11 @@
+.martor-toolbar {
+    border-radius: 8px 8px 0 0 !important;
+    border-color: var(--border) !important;
+    background: #FAFAFA !important;
+}
+
+.martor-preview, .CodeMirror {
+    border-color: var(--border) !important;
+    border-radius: 0 0 8px 8px !important;
+    font-size: 0.9rem !important;
+}

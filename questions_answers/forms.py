@@ -68,5 +68,5 @@ class SearchQuestionsForm(forms.Form):
     order_by = forms.ChoiceField(label='Order by', choices=ORDER_CHOICES, widget=forms.Select(), required=False,
                                  initial='desc')
     tags = TagField(required=False, max_length=128, label='Tags', widget=TagWidget(
-        attrs={'placeholder': 'Comma-separated list of tags to search'}))
+        attrs={'placeholder': 'Comma-separated list of tags'}))
     has_solution = forms.BooleanField(label='Only questions with solution', required=False)

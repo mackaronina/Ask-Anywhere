@@ -3,14 +3,40 @@
 {% load questions_tags %}
 
 {% block content %}
-    <h1>Explore questions</h1>
-    <form action="" method="get">
-        {{ form.as_p }}
-        <button type="submit">Search</button>
-    </form>
-    <h2>{{ paginator.count }} results</h2>
-    {% for question in questions %}
-        {% question_card question %} <br>
-    {% endfor %}
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <h1 class="page-title mb-0">Explore Questions</h1>
+    </div>
+
+    <div class="card p-3 mb-4">
+        <form action="" method="get" class="d-flex gap-2 flex-wrap align-items-end">
+            {% for field in form %}
+                <div class="flex-grow-1" style="min-width:180px;">
+                    <label class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search me-1"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <p class="text-muted mb-3" style="font-size:0.9rem; font-weight:600;">
+        <i class="bi bi-list-ul me-1"></i> {{ paginator.count }} result{{ paginator.count|pluralize }}
+    </p>
+
+    <div class="d-flex flex-column gap-3">
+        {% for question in questions %}
+            {% question_card question %}
+        {% empty %}
+            <div class="card p-5 text-center text-muted">
+                <i class="bi bi-search" style="font-size:2.5rem; color: var(--border);"></i>
+                <p class="mt-3 mb-0 fw-600">No questions found. Try different search terms.</p>
+            </div>
+        {% endfor %}
+    </div>
+
     {% pagination_block paginator page_obj %}
 {% endblock %}

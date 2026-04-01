@@ -3,14 +3,45 @@
 {% load questions_tags %}
 
 {% block content %}
-    <h1>Welcome</h1>
-    <p>Answer questions and ask your own on our website</p>
-    <h1>Recent questions</h1>
-    {% for question in recent_questions %}
-        {% question_card question %} <br>
-    {% endfor %}
-    <h1>Recent answers</h1>
-    {% for answer in recent_answers %}
-        {% answer_card answer %} <br>
-    {% endfor %}
+    <div class="py-5 mb-5 text-center"
+         style="background: linear-gradient(135deg, #FFF7ED 0%, #fff 60%); border-radius: 16px; border: 1px solid #FED7AA;">
+        <h1 style="font-weight:800; font-size:2.5rem; letter-spacing:-1px;">
+            Ask anything. <span style="color: var(--orange)">Anywhere.</span>
+        </h1>
+        <p class="text-muted mb-4" style="font-size:1.05rem; max-width:480px; margin:0 auto;">
+            A community platform for questions, answers, and shared knowledge.
+        </p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a href="{% url 'create_question' %}" class="btn btn-primary px-4 py-2">
+                <i class="bi bi-question-circle me-1"></i> Ask a question
+            </a>
+            <a href="{% url 'questions_index' %}" class="btn btn-primary px-4 py-2">
+                <i class="bi bi-compass me-1"></i> Explore questions
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="section-heading">Recent Questions</div>
+            <div class="d-flex flex-column gap-3">
+                {% for question in recent_questions %}
+                    {% question_card question %}
+                {% empty %}
+                    <p class="text-muted">No questions yet. Be the first to ask!</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="section-heading">Recent Answers</div>
+            <div class="d-flex flex-column gap-3">
+                {% for answer in recent_answers %}
+                    {% answer_card answer %}
+                {% empty %}
+                    <p class="text-muted">No answers yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,19 +1,27 @@
 {% if not answer.is_solution %}
     {% if user == answer.user %}
-        <a href="{% url 'delete_answer' answer.pk %}">Delete</a>
-        <a href="{% url 'update_answer' answer.pk %}">Edit</a>
+        <a href="{% url 'delete_answer' answer.pk %}" class="btn btn-outline-danger btn-sm">
+            <i class="bi bi-trash"></i> Delete
+        </a>
+        <a href="{% url 'update_answer' answer.pk %}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-pencil"></i> Edit
+        </a>
     {% endif %}
     {% if user == question.user %}
-        <form action="{% url 'update_answer_mark' answer.pk %}" method="post">
+        <form action="{% url 'update_answer_mark' answer.pk %}" method="post" class="d-inline">
             {% csrf_token %}
             {{ mark_answer_form }}
-            <button type="submit">Mark as solution</button>
+            <button type="submit" class="btn btn-sm" style="background:#ECFDF5; color:#059669; border:1px solid #A7F3D0; font-weight:700; border-radius:8px;">
+                <i class="bi bi-check-circle"></i> Mark as solution
+            </button>
         </form>
     {% endif %}
 {% elif user == question.user %}
-    <form action="{% url 'update_answer_mark' answer.pk %}" method="post">
+    <form action="{% url 'update_answer_mark' answer.pk %}" method="post" class="d-inline">
         {% csrf_token %}
         {{ unmark_answer_form }}
-        <button type="submit">Unmark as solution</button>
+        <button type="submit" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-x-circle"></i> Unmark solution
+        </button>
     </form>
 {% endif %}

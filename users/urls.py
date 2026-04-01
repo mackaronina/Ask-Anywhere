@@ -11,7 +11,7 @@ urlpatterns = [
     path('confirm-email/', views.ConfirmEmail.as_view(), name='confirm_email'),
     path('confirm-email/<uidb64>/<token>/', views.ConfirmEmailDone.as_view(), name='confirm_email_done'),
     path('password-change/', views.PasswordChange.as_view(), name='password_change'),
-    path('password-change/done/', views.PasswordChangeDone.as_view()),
+    path('password-change/done/', views.PasswordChangeDone.as_view(), name='password_change_done'),
     path('password-reset/', views.PasswordReset.as_view(), name='password_reset'),
     path('password-reset/done/', views.PasswordResetDone.as_view(), name='password_reset_done'),
     path('password-reset/<uidb64>/<token>/', views.PasswordResetConfirm.as_view(),

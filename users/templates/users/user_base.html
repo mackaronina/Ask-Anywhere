@@ -1,11 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <ul>
-        <li><a href="{% url 'users:user_detail' user_object.pk %}">Profile</a></li>
-        <li><a href="{% url 'users:user_questions_list' user_object.pk %}">Questions</a></li>
-        <li><a href="{% url 'users:user_answers_list' user_object.pk %}">Answers</a></li>
-    </ul>
-    {% block user_content %}
-    {% endblock %}
+    <div class="row g-4">
+        <div class="col-lg-3">
+            <div class="card p-3">
+                <nav class="d-flex flex-column gap-1">
+                    <a href="{% url 'users:user_detail' user_object.pk %}"
+                       class="nav-link rounded-2 px-3 py-2 fw-600"
+                       style="font-size:0.9rem; font-weight:600;">
+                        <i class="bi bi-person me-2"></i>Profile
+                    </a>
+                    <a href="{% url 'users:user_questions_list' user_object.pk %}"
+                       class="nav-link rounded-2 px-3 py-2"
+                       style="font-size:0.9rem; font-weight:600;">
+                        <i class="bi bi-question-circle me-2"></i>Questions
+                    </a>
+                    <a href="{% url 'users:user_answers_list' user_object.pk %}"
+                       class="nav-link rounded-2 px-3 py-2"
+                       style="font-size:0.9rem; font-weight:600;">
+                        <i class="bi bi-chat-text me-2"></i>Answers
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            {% block user_content %}{% endblock %}
+        </div>
+    </div>
 {% endblock %}

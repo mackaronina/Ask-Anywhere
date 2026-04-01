@@ -2,11 +2,45 @@
 {% load martortags %}
 
 {% block content %}
-    <h1>Answering to <a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h1>
-    <p>{{ question.text|safe_markdown }} </p>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Publish</button>
-    </form>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card p-3 mb-4" style="background: var(--orange-light); border-color: #FED7AA;">
+                <p class="text-muted mb-1"
+                   style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px;">Answering
+                    to</p>
+                <a href="{{ question.get_absolute_url }}" class="fw-bold" style="color: var(--orange); font-size:1rem;">
+                    {{ question.title }}
+                </a>
+                <p class="mt-2 mb-0 text-muted" style="font-size:0.85rem; line-height:1.5;">
+                    {{ question.text|safe_markdown }}
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h1 class="page-title mb-1">Your answer</h1>
+                <p class="text-muted" style="font-size:0.9rem;">Write a clear and helpful answer. Markdown is
+                    supported.</p>
+            </div>
+
+            <div class="card p-4">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <div class="text-danger" style="font-size:0.82rem; font-weight:600;">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <div class="d-flex gap-2 pt-2">
+                        <button type="submit" class="btn btn-primary px-4">Publish</button>
+                        <a href="{{ question.get_absolute_url }}" class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 {% endblock %}

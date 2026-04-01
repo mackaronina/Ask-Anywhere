@@ -1,28 +1,65 @@
 {% extends 'users/user_base.html' %}
 
 {% block user_content %}
-    <h1>{{ user_object.username }}'s profile</h1>
-    <img src="{{ user_object.photo_url }}" width="200" height="200" alt="profile pic">
+    <div class="card p-4 mb-4">
+        <div class="d-flex align-items-start gap-4 flex-wrap">
+            <div class="text-center">
+                <img src="{{ user_object.photo_url }}" class="user-avatar-lg mb-2" alt="{{ user_object.username }}">
+                {% if user_object == user %}
+                    <form method="post" action="{% url 'users:reset_avatar_profile' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-secondary btn-sm" style="font-size:0.75rem;">
+                            <i class="bi bi-arrow-clockwise"></i> Reset avatar
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+
+            <div class="flex-grow-1">
+                <h2 style="font-weight:800; font-size:1.5rem; margin-bottom:4px;">{{ user_object.username }}</h2>
+                {% if user_object == user %}
+                    <p class="text-muted mb-2" style="font-size:0.9rem;"><i
+                            class="bi bi-envelope me-1"></i>{{ user.email }}</p>
+                {% endif %}
+                <p class="text-muted mb-3" style="font-size:0.82rem;">
+                    <i class="bi bi-calendar3 me-1"></i> Member since {{ user_object.created_at|date:'d.m.Y' }}
+                </p>
+                <div class="d-flex gap-4 flex-wrap">
+                    <div>
+                        <div style="font-weight:800; font-size:1.5rem; color: var(--orange);">{{ user_object.questions.count }}</div>
+                        <div style="font-size:0.78rem; color: var(--text-muted); font-weight:600;">Questions</div>
+                    </div>
+                    <div>
+                        <div style="font-weight:800; font-size:1.5rem; color: var(--orange);">{{ user_object.answers.count }}</div>
+                        <div style="font-size:0.78rem; color: var(--text-muted); font-weight:600;">Answers</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% if user_object == user %}
-        <form method="post" action="{% url 'users:reset_avatar_profile' %}">
-            {% csrf_token %}
-            <button type="submit">Reset avatar</button>
-        </form>
-    {% endif %}
-    <p>Username: {{ user_object.username }} </p>
-    {% if user_object == user %}
-        <p>E-mail: {{ user.email }}</p>
-    {% endif %}
-    <p>Total questions: {{ user_object.questions.count }}</p>
-    <p>Total answers: {{ user_object.answers.count }}</p>
-    <p>Registered at {{ user.created_at|date:'d.m.Y' }}<p>
-    {% if user_object == user %}
-        <form method="post" action="{% url 'users:logout' %}">
-            {% csrf_token %}
-            <button type="submit">Log Out</button>
-        </form>
-        <a href="{% url 'users:delete_profile' %}">Delete</a>
-        <a href="{% url 'users:update_profile' %}">Edit</a>
-        <a href="{% url 'users:password_change' %}">Change password</a>
+        <div class="card p-4">
+            <p class="fw-bold mb-3"
+               style="font-size:0.9rem; color: var(--text-muted); text-transform:uppercase; letter-spacing:.5px;">
+                Account actions</p>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'users:update_profile' %}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-pencil me-1"></i> Edit profile
+                </a>
+                <a href="{% url 'users:password_change' %}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-key me-1"></i> Change password
+                </a>
+                <a href="{% url 'users:delete_profile' %}" class="btn btn-outline-danger btn-sm">
+                    <i class="bi bi-person-x me-1"></i> Delete account
+                </a>
+                <form method="post" action="{% url 'users:logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-box-arrow-right me-1"></i> Log out
+                    </button>
+                </form>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}

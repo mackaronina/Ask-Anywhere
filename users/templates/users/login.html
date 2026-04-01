@@ -1,12 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Login to an existing account</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Log in</button>
-    </form>
-    <p>Don't have an account? <a href="{% url 'users:signup' %}">Sign up</a></p>
-    <a href="{% url 'users:password_reset' %}">Forgot your password?</a>
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-4">
+            <div class="text-center mb-4">
+                <h1 style="font-weight:800; font-size:1.75rem; color: var(--orange);">AskAnywhere</h1>
+                <p class="text-muted" style="font-size:0.9rem;">Log in to your account</p>
+            </div>
+            <div class="card p-4">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <div class="text-danger" style="font-size:0.82rem; font-weight:600;">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    {% if form.non_field_errors %}
+                        <div class="mb-3 p-2 rounded"
+                             style="background:#FEF2F2; border:1px solid #FECACA; color:#DC2626; font-size:0.85rem; font-weight:600;">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary w-100 py-2">Log in</button>
+                </form>
+                <div class="d-flex flex-column gap-2 text-center mt-2" style="font-size:0.875rem;">
+                    <span class="text-muted">Don't have an account? <a href="{% url 'users:signup' %}"
+                                                                       style="color: var(--orange); font-weight:700;">Sign up</a></span>
+                    <a href="{% url 'users:password_reset' %}" style="color: var(--orange); font-weight:700;">Forgot
+                        password?</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

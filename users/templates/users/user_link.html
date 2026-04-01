@@ -1,8 +1,12 @@
 {% load static %}
 {% if not user %}
-    <p>by Anonim</p>
-    <img src="{% static 'users/images/default.png' %}" width="40" height="40" alt="profile pic">
+    <div class="d-inline-flex align-items-center gap-2">
+        <img src="{% static 'users/images/default.png' %}" class="user-avatar" alt="Anonymous">
+        <span style="font-size:0.82rem; font-weight:600; color: var(--text-muted);">Anonymous</span>
+    </div>
 {% else %}
-    <p>by <a href="{{ user.get_absolute_url }}">{{ user.username }}</a></p>
-    <img src="{{ user.photo_url }}" width="40" height="40" alt="profile pic">
+    <a href="{{ user.get_absolute_url }}" class="d-inline-flex align-items-center gap-2 text-decoration-none">
+        <img src="{{ user.photo_url }}" class="user-avatar" alt="{{ user.username }}">
+        <span style="font-size:0.82rem; font-weight:700; color: var(--text-main);">{{ user.username }}</span>
+    </a>
 {% endif %}
