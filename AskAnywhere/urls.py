@@ -22,5 +22,6 @@ urlpatterns = [
     path('', include('questions_answers.urls')),
     path('users/', include('users.urls', namespace='users')),
     path('__debug__/', include('debug_toolbar.urls')),
-    path('martor/', include('martor.urls'))
+    path('martor/', include('martor.urls')),
+    path('i18n/', include('django.conf.urls.i18n'))
 ]

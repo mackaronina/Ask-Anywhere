@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import CreateView, RedirectView, UpdateView, DeleteView, DetailView, ListView, TemplateView
 
@@ -43,7 +44,7 @@ class SignupUser(CreateView):
                 'token': email_confirmation_token.make_token(user),
                 'protocol': self.request.scheme
             })
-            email = EmailMessage(subject='Activate your account', body=message, to=[user.email])
+            email = EmailMessage(subject=_('Activate your account'), body=message, to=[user.email])
             email.send()
         return super().form_valid(form)
 
@@ -130,7 +131,7 @@ class DeleteProfile(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('index')
     extra_context = {
-        'entity_name': 'your account'
+        'entity_name': _('your account')
     }
 
     def get_object(self, queryset=None):

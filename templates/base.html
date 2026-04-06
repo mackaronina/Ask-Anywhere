@@ -1,4 +1,7 @@
+{% load i18n %}
 {% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,31 +26,49 @@
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav me-auto ms-2 gap-1">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}"><i class="bi bi-house me-1"></i>Home</a>
+                    <a class="nav-link" href="{% url 'index' %}"><i class="bi bi-house me-1"></i>{% trans 'Home' %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'questions_index' %}"><i class="bi bi-compass me-1"></i>Explore</a>
+                    <a class="nav-link" href="{% url 'questions_index' %}"><i
+                            class="bi bi-compass me-1"></i>{% trans 'Explore' %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'random_question' %}"><i class="bi bi-dice-6 me-1"></i>Random</a>
+                    <a class="nav-link" href="{% url 'random_question' %}"><i
+                            class="bi bi-dice-6 me-1"></i>{% trans 'Random' %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'create_question' %}"><i class="bi bi-question-circle me-1"></i>Ask</a>
+                    <a class="nav-link" href="{% url 'create_question' %}"><i
+                            class="bi bi-question-circle me-1"></i>{% trans 'Ask' %}</a>
                 </li>
             </ul>
             <ul class="navbar-nav align-items-center gap-2">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:profile' %}"><i class="bi bi-person-circle me-1"></i>Profile</a>
+                        <a class="nav-link" href="{% url 'users:profile' %}"><i
+                                class="bi bi-person-circle me-1"></i>{% trans 'Profile' %}</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link btn-nav-cta" href="{% url 'users:login' %}">Log in</a>
+                        <a class="nav-link btn-nav-cta" href="{% url 'users:login' %}">{% trans 'Log in' %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn-nav-cta" href="{% url 'users:signup' %}">Sign up</a>
+                        <a class="nav-link btn-nav-cta" href="{% url 'users:signup' %}">{% trans 'Sign up' %}</a>
                     </li>
                 {% endif %}
+                <li class="nav-item">
+                    {% get_current_language as CURRENT_LANG %}
+                    {% get_available_languages as LANGUAGES %}
+                    <form action="{% url 'set_language' %}" method="post" style="margin:0;">
+                        {% csrf_token %}
+                        <select class="border-0 shadow-none" name="language" onchange="this.form.submit()">
+                            {% for lang_code, lang_name in LANGUAGES %}
+                                <option value="{{ lang_code }}" {% if lang_code == CURRENT_LANG %}selected{% endif %}>
+                                    {{ lang_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>

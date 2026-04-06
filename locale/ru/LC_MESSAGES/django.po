@@ -1,0 +1,602 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-06 06:30+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\questions_answers\forms.py:12
+msgid "Question title"
+msgstr "Заголовок вопроса"
+
+#: .\questions_answers\forms.py:13
+msgid "Enter your question here. The question must end with a question mark"
+msgstr ""
+"Введите свой вопрос здесь. Вопрос должен заканчиваться вопросительным знаком"
+
+#: .\questions_answers\forms.py:14
+msgid "Question body"
+msgstr "Тело вопроса"
+
+#: .\questions_answers\forms.py:15
+msgid "Describe your question in detail so that everyone understands"
+msgstr "Подробно опишите свой вопрос, чтобы все поняли вас"
+
+#: .\questions_answers\forms.py:16 .\questions_answers\forms.py:71
+msgid "Tags"
+msgstr "Теги"
+
+#: .\questions_answers\forms.py:17
+msgid "Provide a comma-separated list of tags (optional)"
+msgstr "Укажите список тегов, разделенных запятыми (опционально)"
+
+#: .\questions_answers\forms.py:26
+msgid "The question title must end with a question mark"
+msgstr "Заголовок вопроса должен заканчиваться вопросительным знаком"
+
+#: .\questions_answers\forms.py:31
+msgid "Answer body"
+msgstr "Тело ответа"
+
+#: .\questions_answers\forms.py:32
+msgid "Write a detailed answer to the question. Avoid repeating other answers"
+msgstr "Напишите подробный ответ на вопрос. Избегайте повторения чужих ответов"
+
+#: .\questions_answers\forms.py:57
+msgid "Creation date"
+msgstr "Дата создания"
+
+#: .\questions_answers\forms.py:58
+msgid "Answers count"
+msgstr "Кол-во ответов"
+
+#: .\questions_answers\forms.py:59
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: .\questions_answers\forms.py:62
+msgid "Descending"
+msgstr "Убывание"
+
+#: .\questions_answers\forms.py:63
+msgid "Ascending"
+msgstr "Возрастание"
+
+#: .\questions_answers\forms.py:66
+msgid "Search..."
+msgstr "Искать..."
+
+#: .\questions_answers\forms.py:67
+msgid "Sort by"
+msgstr "Сортировать по"
+
+#: .\questions_answers\forms.py:69
+msgid "Order by"
+msgstr "Упорядочить по"
+
+#: .\questions_answers\forms.py:72
+msgid "Comma-separated list of tags"
+msgstr "Список тегов, разделенных запятыми"
+
+#: .\questions_answers\forms.py:73
+msgid "Only questions with solution"
+msgstr "Только вопросы с решениями"
+
+#: .\questions_answers\templates\questions_answers\answer_card.html:12
+#: .\questions_answers\templates\questions_answers\question_card.html:12
+#: .\questions_answers\templates\questions_answers\vote_block.html:43
+msgid "votes"
+msgstr "голосов"
+
+#: .\questions_answers\templates\questions_answers\answer_card.html:20
+#: .\questions_answers\templates\questions_answers\question_detail.html:80
+msgid "Solution"
+msgstr "Решение"
+
+#: .\questions_answers\templates\questions_answers\create_answer.html:10
+msgid "Answering to"
+msgstr "Ответ на"
+
+#: .\questions_answers\templates\questions_answers\create_answer.html:20
+msgid "Your answer"
+msgstr "Ваш ответ"
+
+#: .\questions_answers\templates\questions_answers\create_answer.html:22
+msgid "Write a clear and helpful answer. Markdown is supported."
+msgstr "Напишите понятный и полезный ответ. Поддерживается разметка Markdown."
+
+#: .\questions_answers\templates\questions_answers\create_answer.html:38
+#: .\questions_answers\templates\questions_answers\create_question.html:28
+msgid "Publish"
+msgstr "Опубликовать"
+
+#: .\questions_answers\templates\questions_answers\create_answer.html:40
+#: .\questions_answers\templates\questions_answers\create_question.html:30
+#: .\questions_answers\templates\questions_answers\update_answer.html:41
+#: .\questions_answers\templates\questions_answers\update_question.html:31
+#: .\templates\confirm_delete.html:17
+#: .\users\templates\users\change_password.html:26
+#: .\users\templates\users\update_profile.html:29
+msgid "Cancel"
+msgstr "Отмена"
+
+#: .\questions_answers\templates\questions_answers\create_question.html:8
+#: .\questions_answers\templates\questions_answers\index.html:17
+msgid "Ask a question"
+msgstr "Задать вопрос"
+
+#: .\questions_answers\templates\questions_answers\create_question.html:10
+msgid "Be specific and describe your problem clearly. Markdown is supported."
+msgstr ""
+"Будьте конкретны и четко опишите свою проблему. Поддерживается разметка "
+"Markdown."
+
+#: .\questions_answers\templates\questions_answers\edit_answer_block.html:5
+#: .\questions_answers\templates\questions_answers\question_detail.html:57
+#: .\templates\confirm_delete.html:14
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\questions_answers\templates\questions_answers\edit_answer_block.html:8
+#: .\questions_answers\templates\questions_answers\question_detail.html:53
+msgid "Edit"
+msgstr "Изменить"
+
+#: .\questions_answers\templates\questions_answers\edit_answer_block.html:17
+msgid "Mark as solution"
+msgstr "Пометить решение"
+
+#: .\questions_answers\templates\questions_answers\edit_answer_block.html:26
+msgid "Unmark solution"
+msgstr "Убрать пометку"
+
+#: .\questions_answers\templates\questions_answers\index.html:10
+msgid "Ask anything."
+msgstr "Спрашивай что угодно."
+
+#: .\questions_answers\templates\questions_answers\index.html:10
+msgid "Anywhere."
+msgstr "Где угодно."
+
+#: .\questions_answers\templates\questions_answers\index.html:13
+msgid "A community platform for questions, answers, and shared knowledge."
+msgstr ""
+"Сообщество, где можно задавать вопросы, получать ответы и обмениваться "
+"знаниями."
+
+#: .\questions_answers\templates\questions_answers\index.html:20
+#: .\questions_answers\templates\questions_answers\questions_index.html:8
+msgid "Explore questions"
+msgstr "Искать вопросы"
+
+#: .\questions_answers\templates\questions_answers\index.html:27
+msgid "Recent questions"
+msgstr "Недавние вопросы"
+
+#: .\questions_answers\templates\questions_answers\index.html:32
+msgid "No questions yet. Be the first to ask!"
+msgstr "Вопросов пока нет. Будь первым!"
+
+#: .\questions_answers\templates\questions_answers\index.html:38
+msgid "Recent answers"
+msgstr "Недавние ответы"
+
+#: .\questions_answers\templates\questions_answers\index.html:43
+#: .\users\templates\users\user_answers_list.html:17
+msgid "No answers yet."
+msgstr "Ответов пока нет."
+
+#: .\questions_answers\templates\questions_answers\question_card.html:16
+#: .\questions_answers\templates\questions_answers\question_detail.html:72
+msgid "answers"
+msgstr "ответов"
+
+#: .\questions_answers\templates\questions_answers\question_card.html:25
+msgid "Solved"
+msgstr "Решено"
+
+#: .\questions_answers\templates\questions_answers\question_detail.html:14
+msgid "All questions"
+msgstr "Все вопросы"
+
+#: .\questions_answers\templates\questions_answers\question_detail.html:36
+msgid "edited"
+msgstr "изменено"
+
+#: .\questions_answers\templates\questions_answers\question_detail.html:68
+msgid "Write an answer"
+msgstr "Написать ответ"
+
+#: .\questions_answers\templates\questions_answers\question_detail.html:106
+msgid "No answers yet. Be the first to answer!"
+msgstr "Ответов пока нет. Будь первым!"
+
+#: .\questions_answers\templates\questions_answers\questions_index.html:21
+msgid "Search"
+msgstr "Поиск"
+
+#: .\questions_answers\templates\questions_answers\questions_index.html:28
+msgid "results"
+msgstr "результатов"
+
+#: .\questions_answers\templates\questions_answers\questions_index.html:37
+msgid "No questions found. Try different search terms."
+msgstr "Вопросы не найдены. Попробуйте другие поисковые запросы."
+
+#: .\questions_answers\templates\questions_answers\update_answer.html:10
+msgid "Editing answer to"
+msgstr "Изменение ответа на"
+
+#: .\questions_answers\templates\questions_answers\update_answer.html:21
+msgid "Edit your answer"
+msgstr "Измените ваш ответ"
+
+#: .\questions_answers\templates\questions_answers\update_answer.html:38
+#: .\questions_answers\templates\questions_answers\update_question.html:28
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: .\questions_answers\templates\questions_answers\update_question.html:8
+msgid "Edit question"
+msgstr "Изменение вопроса"
+
+#: .\questions_answers\templates\questions_answers\update_question.html:9
+msgid "Update your question below."
+msgstr "Обновите свой вопрос ниже."
+
+#: .\questions_answers\views.py:127
+msgid "your question"
+msgstr "ваш вопрос"
+
+#: .\questions_answers\views.py:166 .\questions_answers\views.py:183
+msgid "Answer marked as solution cannot be modified"
+msgstr "Ответ, помеченный как решение, изменить нельзя"
+
+#: .\questions_answers\views.py:178
+msgid "your answer"
+msgstr "ваш ответ"
+
+#: .\questions_answers\views.py:209
+msgid "You can't vote for yourself"
+msgstr "Вы не можете голосовать за себя"
+
+#: .\templates\base.html:29
+msgid "Home"
+msgstr "Главная"
+
+#: .\templates\base.html:33
+msgid "Explore"
+msgstr "Искать"
+
+#: .\templates\base.html:37
+msgid "Random"
+msgstr "Случайно"
+
+#: .\templates\base.html:41
+msgid "Ask"
+msgstr "Спросить"
+
+#: .\templates\base.html:48 .\users\templates\users\user_base.html:12
+msgid "Profile"
+msgstr "Профиль"
+
+#: .\templates\base.html:52 .\users\templates\users\confirm_email_done.html:12
+#: .\users\templates\users\login.html:29
+#: .\users\templates\users\reset_password_complete.html:12
+#: .\users\templates\users\signup.html:30
+msgid "Log in"
+msgstr "Вход"
+
+#: .\templates\base.html:55 .\users\templates\users\login.html:35
+msgid "Sign up"
+msgstr "Регистрация"
+
+#: .\templates\confirm_delete.html:8
+msgid "Confirm deletion"
+msgstr "Подтверждение удаления"
+
+#: .\templates\confirm_delete.html:9
+msgid "Are you sure you want to delete"
+msgstr "Вы уверены, что хотите удалить"
+
+#: .\templates\confirm_delete.html:10
+msgid "This action cannot be undone."
+msgstr "Это действие необратимо."
+
+#: .\users\forms.py:9
+msgid "Username or e-mail"
+msgstr "Никнейм или почта"
+
+#: .\users\forms.py:10 .\users\forms.py:16
+msgid "Password"
+msgstr "Пароль"
+
+#: .\users\forms.py:14 .\users\forms.py:31
+msgid "Username"
+msgstr "Никнейм"
+
+#: .\users\forms.py:15 .\users\forms.py:32
+msgid "E-mail"
+msgstr "Почта"
+
+#: .\users\forms.py:17 .\users\forms.py:49
+msgid "Repeat password"
+msgstr "Повтор пароля"
+
+#: .\users\forms.py:26
+msgid "This email is already in use"
+msgstr "Эта почта уже используется"
+
+#: .\users\forms.py:34
+msgid "Profile avatar"
+msgstr "Аватар пользователя"
+
+#: .\users\forms.py:47
+msgid "Old password"
+msgstr "Старый пароль"
+
+#: .\users\forms.py:48
+msgid "New password"
+msgstr "Новый пароль"
+
+#: .\users\templates\users\change_password.html:8
+#: .\users\templates\users\user_detail.html:52
+msgid "Change password"
+msgstr "Изменить пароль"
+
+#: .\users\templates\users\change_password.html:9
+msgid "Choose a new strong password."
+msgstr "Выберите новый сложный пароль."
+
+#: .\users\templates\users\change_password.html:24
+msgid "Change"
+msgstr "Изменить"
+
+#: .\users\templates\users\change_password_done.html:8
+msgid "Password changed!"
+msgstr "Пароль изменён!"
+
+#: .\users\templates\users\change_password_done.html:9
+msgid "Your password has been updated successfully."
+msgstr "Ваш пароль успешно обновлен."
+
+#: .\users\templates\users\change_password_done.html:10
+msgid "Back to profile"
+msgstr "К профилю"
+
+#: .\users\templates\users\confirm_email.html:8
+msgid "Verify your email"
+msgstr "Подтвердите свой адрес электронной почты"
+
+#: .\users\templates\users\confirm_email.html:10
+msgid ""
+"A confirmation link has been sent to your email. Follow it to activate your "
+"account. Don't forget to check your spam folder."
+msgstr ""
+"На вашу электронную почту отправлена ссылка для подтверждения. Перейдите по "
+"ней, чтобы активировать свой аккаунт. Не забудьте проверить папку Спам."
+
+#: .\users\templates\users\confirm_email_done.html:8
+msgid "Email verified!"
+msgstr "Почта подтверждена!"
+
+#: .\users\templates\users\confirm_email_done.html:10
+msgid "Your email has been verified. You can now login."
+msgstr ""
+"Ваш адрес электронной почты подтвержден. Теперь вы можете войти в систему."
+
+#: .\users\templates\users\confirm_email_invalid.html:8
+msgid "Activation failed"
+msgstr "Активация не удалась"
+
+#: .\users\templates\users\confirm_email_invalid.html:10
+msgid ""
+"An error occurred while activating your account. Please try again or "
+"register again."
+msgstr ""
+"Произошла ошибка при активации вашей учетной записи. Пожалуйста, попробуйте "
+"еще раз или зарегистрируйтесь снова."
+
+#: .\users\templates\users\confirm_email_invalid.html:12
+msgid "Back to Sign up"
+msgstr "К регистрации"
+
+#: .\users\templates\users\login.html:9
+msgid "Log in to your account"
+msgstr "Вход в аккаунт"
+
+#: .\users\templates\users\login.html:33
+msgid "Don't have an account?"
+msgstr "Нет аккаунта?"
+
+#: .\users\templates\users\login.html:38
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
+
+#: .\users\templates\users\registration_confirmation_email.html:3
+#: .\users\templates\users\reset_password_email.html:3
+#, python-format
+msgid "Hi %(user.get_username)s,"
+msgstr "Привет %(user.get_username)s,"
+
+#: .\users\templates\users\registration_confirmation_email.html:5
+#, python-format
+msgid "You're receiving this email because you registered on %(site_name)s"
+msgstr "Вы получили это письмо потому что прошли регистрацию на %(site_name)s"
+
+#: .\users\templates\users\registration_confirmation_email.html:6
+msgid "Please click the link below to activate your account:"
+msgstr "Для активации учетной записи, пожалуйста, перейдите по ссылке ниже:"
+
+#: .\users\templates\users\registration_confirmation_email.html:9
+#: .\users\templates\users\reset_password_email.html:9
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Команда %(site_name)s"
+
+#: .\users\templates\users\reset_password.html:8
+msgid "Reset password"
+msgstr "Восстановление пароля"
+
+#: .\users\templates\users\reset_password.html:10
+msgid "Enter your email and we'll send a reset link."
+msgstr ""
+"Введите свой адрес электронной почты, и мы вышлем вам ссылку для сброса "
+"пароля."
+
+#: .\users\templates\users\reset_password.html:24
+msgid "Send reset link"
+msgstr "Отправить ссылку"
+
+#: .\users\templates\users\reset_password.html:28
+#: .\users\templates\users\reset_password_done.html:12
+msgid "Back to login"
+msgstr "Ко входу"
+
+#: .\users\templates\users\reset_password_complete.html:8
+msgid "Password updated!"
+msgstr "Пароль обновлён!"
+
+#: .\users\templates\users\reset_password_complete.html:10
+msgid ""
+"Your password has been changed. You can now log in with your new credentials."
+msgstr ""
+"Ваш пароль изменен. Теперь вы можете войти в систему, используя новые "
+"учетные данные."
+
+#: .\users\templates\users\reset_password_confirm.html:8
+msgid "Set new password"
+msgstr "Установить новый пароль"
+
+#: .\users\templates\users\reset_password_confirm.html:9
+msgid "Choose a strong new password."
+msgstr "Выберите новый надежный пароль."
+
+#: .\users\templates\users\reset_password_confirm.html:23
+msgid "Set password"
+msgstr "Установить пароль"
+
+#: .\users\templates\users\reset_password_done.html:8
+msgid "Check your inbox"
+msgstr "Проверьте вашу почту"
+
+#: .\users\templates\users\reset_password_done.html:10
+msgid ""
+"Password reset instructions have been sent. Be sure to check your spam "
+"folder too."
+msgstr "Инструкции по сбросу пароля отправлены. Проверьте также папку Спам."
+
+#: .\users\templates\users\reset_password_email.html:5
+#, fuzzy, python-format
+#| msgid ""
+#| "You're receiving this email because you requested a password reset for "
+#| "your user account at\n"
+#| "        %(site_name)s"
+msgid ""
+"You're receiving email because you requested a password reset at "
+"%(site_name)s"
+msgstr ""
+"Вы получили это письмо, потому что запросили сброс пароля на %(site_name)s"
+
+#: .\users\templates\users\reset_password_email.html:6
+msgid "Please go to the following page and choose a new password:"
+msgstr "Пожалуйста, перейдите на следующую страницу и выберите новый пароль:"
+
+#: .\users\templates\users\signup.html:9
+msgid "Create a new account"
+msgstr "Создание нового аккаунта"
+
+#: .\users\templates\users\signup.html:26
+msgid "Create account"
+msgstr "Создать аккаунт"
+
+#: .\users\templates\users\signup.html:29
+msgid "Already have an account?"
+msgstr "Уже есть аккаунт?"
+
+#: .\users\templates\users\update_profile.html:8
+#: .\users\templates\users\user_detail.html:49
+msgid "Edit profile"
+msgstr "Редактировать профиль"
+
+#: .\users\templates\users\update_profile.html:9
+msgid "Update your profile information."
+msgstr "Обновление информации профиля"
+
+#: .\users\templates\users\update_profile.html:27
+msgid "Save"
+msgstr "Сохранить"
+
+#: .\users\templates\users\user_answers_list.html:8
+msgid "Answers by"
+msgstr "Ответы от"
+
+#: .\users\templates\users\user_answers_list.html:9
+#: .\users\templates\users\user_questions_list.html:9
+msgid "total"
+msgstr "всего"
+
+#: .\users\templates\users\user_base.html:17
+#: .\users\templates\users\user_detail.html:31
+msgid "Questions"
+msgstr "Вопросы"
+
+#: .\users\templates\users\user_base.html:22
+#: .\users\templates\users\user_detail.html:35
+msgid "Answers"
+msgstr "Ответы"
+
+#: .\users\templates\users\user_detail.html:13
+msgid "Reset avatar"
+msgstr "Сбросить аватар"
+
+#: .\users\templates\users\user_detail.html:26
+msgid "Member since"
+msgstr "Участник с"
+
+#: .\users\templates\users\user_detail.html:46
+msgid "Account actions"
+msgstr "Действия с аккаунтом"
+
+#: .\users\templates\users\user_detail.html:55
+msgid "Delete account"
+msgstr "Удалить аккаунт"
+
+#: .\users\templates\users\user_detail.html:60
+msgid "Log out"
+msgstr "Выйти"
+
+#: .\users\templates\users\user_link.html:6
+msgid "Anonymous"
+msgstr "Аноним"
+
+#: .\users\templates\users\user_questions_list.html:8
+msgid "Questions by"
+msgstr "Вопросы от"
+
+#: .\users\templates\users\user_questions_list.html:17
+msgid "No questions yet."
+msgstr "Вопросов пока нет."
+
+#: .\users\views.py:47
+msgid "Activate your account"
+msgstr "Активация аккаунта"
+
+#: .\users\views.py:134
+msgid "your account"
+msgstr "ваш аккаунт"

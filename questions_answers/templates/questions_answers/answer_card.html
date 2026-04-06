@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load martortags %}
 {% load users_tags %}
 
@@ -8,7 +9,7 @@
         <div class="d-flex flex-column align-items-center gap-1 pt-1" style="min-width:52px;">
             <div class="text-center">
                 <div style="font-weight:800; font-size:1.1rem; color: var(--orange)">{{ answer.get_rating }}</div>
-                <div style="font-size:0.7rem; color: var(--text-muted); font-weight:600;">votes</div>
+                <div style="font-size:0.7rem; color: var(--text-muted); font-weight:600;">{% trans 'votes' %}</div>
             </div>
         </div>
 
@@ -16,7 +17,7 @@
             <div class="d-flex align-items-start justify-content-between gap-2 mb-1">
                 <div class="flex-grow-1 min-w-0">
                     {% if answer.is_solution %}
-                        <span class="solved-badge"><i class="bi bi-check-circle-fill"></i> Solution</span>
+                        <span class="solved-badge"><i class="bi bi-check-circle-fill"></i> {% trans 'Solution' %}</span>
                     {% endif %}
                 </div>
                 <div class="card-user-link flex-shrink-0">

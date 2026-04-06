@@ -1,4 +1,5 @@
 {% extends 'markdown_base.html' %}
+{% load i18n %}
 {% load martortags %}
 
 {% block content %}
@@ -6,8 +7,7 @@
         <div class="col-lg-8">
             <div class="card p-3 mb-4" style="background: var(--orange-light); border-color: #FED7AA;">
                 <p class="text-muted mb-1"
-                   style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px;">Answering
-                    to</p>
+                   style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px;">{% trans 'Answering to' %}</p>
                 <a href="{{ question.get_absolute_url }}" class="fw-bold" style="color: var(--orange); font-size:1rem;">
                     {{ question.title }}
                 </a>
@@ -17,9 +17,9 @@
             </div>
 
             <div class="mb-4">
-                <h1 class="page-title mb-1">Your answer</h1>
-                <p class="text-muted" style="font-size:0.9rem;">Write a clear and helpful answer. Markdown is
-                    supported.</p>
+                <h1 class="page-title mb-1">{% trans 'Your answer' %}</h1>
+                <p class="text-muted"
+                   style="font-size:0.9rem;">{% trans 'Write a clear and helpful answer. Markdown is supported.' %}</p>
             </div>
 
             <div class="card p-4">
@@ -35,8 +35,10 @@
                         </div>
                     {% endfor %}
                     <div class="d-flex gap-2 pt-2">
-                        <button type="submit" class="btn btn-primary px-4">Publish</button>
-                        <a href="{{ question.get_absolute_url }}" class="btn btn-outline-secondary px-4">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-4">{% trans 'Publish' %}</button>
+                        <button type="button" onclick="history.back();" class="btn btn-outline-secondary px-4">
+                            {% trans 'Cancel' %}
+                        </button>
                     </div>
                 </form>
             </div>

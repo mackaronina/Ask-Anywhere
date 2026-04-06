@@ -1,8 +1,9 @@
+{% load i18n %}
 {% load static %}
 {% if not user %}
     <div class="d-inline-flex align-items-center gap-2">
         <img src="{% static 'users/images/default.png' %}" class="user-avatar" alt="Anonymous">
-        <span style="font-size:0.82rem; font-weight:600; color: var(--text-muted);">Anonymous</span>
+        <span style="font-size:0.82rem; font-weight:600; color: var(--text-muted);">{% trans 'Anonymous' %}</span>
     </div>
 {% else %}
     <a href="{{ user.get_absolute_url }}" class="d-inline-flex align-items-center gap-2 text-decoration-none">

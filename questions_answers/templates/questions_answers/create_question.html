@@ -1,11 +1,13 @@
 {% extends 'markdown_base.html' %}
+{% load i18n %}
 
 {% block content %}
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="mb-4">
-                <h1 class="page-title mb-1">Ask a question</h1>
-                <p class="text-muted" style="font-size:0.9rem;">Be specific and describe your problem clearly.</p>
+                <h1 class="page-title mb-1">{% trans 'Ask a question' %}</h1>
+                <p class="text-muted"
+                   style="font-size:0.9rem;">{% trans 'Be specific and describe your problem clearly. Markdown is supported.' %}</p>
             </div>
             <div class="card p-4">
                 <form action="" method="post">
@@ -23,8 +25,9 @@
                         </div>
                     {% endfor %}
                     <div class="d-flex gap-2 pt-2">
-                        <button type="submit" class="btn btn-primary px-4">Publish</button>
-                        <button type="button" onclick="history.back();" class="btn btn-outline-secondary px-4">Cancel
+                        <button type="submit" class="btn btn-primary px-4">{% trans 'Publish' %}</button>
+                        <button type="button" onclick="history.back();" class="btn btn-outline-secondary px-4">
+                            {% trans 'Cancel' %}
                         </button>
                     </div>
                 </form>

@@ -1,44 +1,45 @@
+{% load i18n %}
 {% if entity.user != user %}
-<div class="vote-wrap">
-    {% if vote and vote.is_positive %}
-        <form action="{% url delete_route entity.pk %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn voted" title="Remove upvote">
-                <i class="bi bi-caret-up-fill"></i>
-            </button>
-        </form>
-    {% else %}
-        <form action="{% url create_route entity.pk %}" method="post">
-            {% csrf_token %}
-            {{ vote_up_form }}
-            <button type="submit" class="btn" title="Upvote">
-                <i class="bi bi-caret-up"></i>
-            </button>
-        </form>
-    {% endif %}
+    <div class="vote-wrap">
+        {% if vote and vote.is_positive %}
+            <form action="{% url delete_route entity.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn voted" title="Remove upvote">
+                    <i class="bi bi-caret-up-fill"></i>
+                </button>
+            </form>
+        {% else %}
+            <form action="{% url create_route entity.pk %}" method="post">
+                {% csrf_token %}
+                {{ vote_up_form }}
+                <button type="submit" class="btn" title="Upvote">
+                    <i class="bi bi-caret-up"></i>
+                </button>
+            </form>
+        {% endif %}
 
-    <span class="vote-count">{{ entity.get_rating }}</span>
+        <span class="vote-count">{{ entity.get_rating }}</span>
 
-    {% if vote and vote.is_negative %}
-        <form action="{% url delete_route entity.pk %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn voted" title="Remove downvote">
-                <i class="bi bi-caret-down-fill"></i>
-            </button>
-        </form>
-    {% else %}
-        <form action="{% url create_route entity.pk %}" method="post">
-            {% csrf_token %}
-            {{ vote_down_form }}
-            <button type="submit" class="btn" title="Downvote">
-                <i class="bi bi-caret-down"></i>
-            </button>
-        </form>
-    {% endif %}
-</div>
+        {% if vote and vote.is_negative %}
+            <form action="{% url delete_route entity.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn voted" title="Remove downvote">
+                    <i class="bi bi-caret-down-fill"></i>
+                </button>
+            </form>
+        {% else %}
+            <form action="{% url create_route entity.pk %}" method="post">
+                {% csrf_token %}
+                {{ vote_down_form }}
+                <button type="submit" class="btn" title="Downvote">
+                    <i class="bi bi-caret-down"></i>
+                </button>
+            </form>
+        {% endif %}
+    </div>
 {% else %}
-<div class="vote-wrap">
-    <span class="vote-count">{{ entity.get_rating }}</span>
-    <span class="stat-pill" style="font-size:0.7rem;">votes</span>
-</div>
+    <div class="vote-wrap">
+        <span class="vote-count">{{ entity.get_rating }}</span>
+        <span class="stat-pill" style="font-size:0.7rem;">{% trans 'votes' %}</span>
+    </div>
 {% endif %}

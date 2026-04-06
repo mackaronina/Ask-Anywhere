@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
     <div class="row justify-content-center">
         <div class="col-md-5 col-lg-4">
             <div class="card p-5 text-center">
-                <h2 class="page-title mt-3 mb-2" style="font-size:1.4rem;">Activation failed</h2>
-                <p class="text-muted mb-4" style="font-size:0.9rem;">An error occurred while activating your account.
-                    Please try again or register again.</p>
-                <a href="{% url 'users:signup' %}" class="btn btn-primary px-4">Back to Sign up</a>
+                <h2 class="page-title mt-3 mb-2" style="font-size:1.4rem;">{% trans 'Activation failed' %}</h2>
+                <p class="text-muted mb-4" style="font-size:0.9rem;">
+                    {% trans 'An error occurred while activating your account. Please try again or register again.' %}
+                </p>
+                <a href="{% url 'users:signup' %}" class="btn btn-primary px-4">{% trans 'Back to Sign up' %}</a>
             </div>
         </div>
     </div>

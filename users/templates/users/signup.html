@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
             <div class="text-center mb-4">
                 <h1 style="font-weight:800; font-size:1.75rem; color: var(--orange);">AskAnywhere</h1>
-                <p class="text-muted" style="font-size:0.9rem;">Create a new account</p>
+                <p class="text-muted" style="font-size:0.9rem;">{% trans 'Create a new account' %}</p>
             </div>
             <div class="card p-4">
                 <form method="post">
@@ -22,11 +23,11 @@
                             {% endfor %}
                         </div>
                     {% endfor %}
-                    <button type="submit" class="btn btn-primary w-100 py-2 mt-1">Create account</button>
+                    <button type="submit" class="btn btn-primary w-100 py-2 mt-1">{% trans 'Create account' %}</button>
                 </form>
                 <p class="text-center text-muted mb-0 mt-2" style="font-size:0.875rem;">
-                    Already have an account? <a href="{% url 'users:login' %}"
-                                                style="color: var(--orange); font-weight:700;">Log in</a>
+                    {% trans 'Already have an account?' %} <a href="{% url 'users:login' %}"
+                                                              style="color: var(--orange); font-weight:700;">{% trans 'Log in' %}</a>
                 </p>
             </div>
         </div>

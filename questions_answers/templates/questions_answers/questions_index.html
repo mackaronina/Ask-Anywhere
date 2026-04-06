@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load pagination_tags %}
 {% load questions_tags %}
 
 {% block content %}
     <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
-        <h1 class="page-title mb-0">Explore Questions</h1>
+        <h1 class="page-title mb-0">{% trans 'Explore questions' %}</h1>
     </div>
 
     <div class="card p-3 mb-4">
@@ -17,14 +18,14 @@
             {% endfor %}
             <div>
                 <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-search me-1"></i> Search
+                    <i class="bi bi-search me-1"></i> {% trans 'Search' %}
                 </button>
             </div>
         </form>
     </div>
 
     <p class="text-muted mb-3" style="font-size:0.9rem; font-weight:600;">
-        <i class="bi bi-list-ul me-1"></i> {{ paginator.count }} result{{ paginator.count|pluralize }}
+        <i class="bi bi-list-ul me-1"></i> {{ paginator.count }} {% trans 'results' %}
     </p>
 
     <div class="d-flex flex-column gap-3">
@@ -33,7 +34,7 @@
         {% empty %}
             <div class="card p-5 text-center text-muted">
                 <i class="bi bi-search" style="font-size:2.5rem; color: var(--border);"></i>
-                <p class="mt-3 mb-0 fw-600">No questions found. Try different search terms.</p>
+                <p class="mt-3 mb-0 fw-600">{% trans 'No questions found. Try different search terms.' %}</p>
             </div>
         {% endfor %}
     </div>

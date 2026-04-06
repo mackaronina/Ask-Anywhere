@@ -1,4 +1,5 @@
 {% extends 'markdown_base.html' %}
+{% load i18n %}
 {% load martortags %}
 {% load answers_tags %}
 {% load questions_tags %}
@@ -10,7 +11,7 @@
 
             <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
                 <a href="{% url 'questions_index' %}" class="stat-pill" style="text-decoration:none;">
-                    <i class="bi bi-arrow-left"></i> All questions
+                    <i class="bi bi-arrow-left"></i> {% trans 'All questions' %}
                 </a>
             </div>
 
@@ -32,7 +33,7 @@
                                         class="bi bi-clock"></i> {{ question.created_at|date:'d.m.Y H:i' }}</span>
                                 {% if question.updated_at %}
                                     <span class="stat-pill"><i
-                                            class="bi bi-pencil"></i> edited {{ question.updated_at|date:'d.m.Y H:i' }}</span>
+                                            class="bi bi-pencil"></i> {% trans 'edited' %} {{ question.updated_at|date:'d.m.Y H:i' }}</span>
                                 {% endif %}
                             </div>
                         </div>
@@ -49,11 +50,11 @@
                                 <div class="d-flex gap-2">
                                     <a href="{% url 'update_question' question.pk %}"
                                        class="btn btn-outline-secondary btn-sm">
-                                        <i class="bi bi-pencil"></i> Edit
+                                        <i class="bi bi-pencil"></i> {% trans 'Edit' %}
                                     </a>
                                     <a href="{% url 'delete_question' question.pk %}"
                                        class="btn btn-outline-danger btn-sm">
-                                        <i class="bi bi-trash"></i> Delete
+                                        <i class="bi bi-trash"></i> {% trans 'Delete' %}
                                     </a>
                                 </div>
                             {% endif %}
@@ -64,11 +65,11 @@
 
             <div class="d-flex justify-content-end mb-4">
                 <a href="{% url 'create_answer' question.pk %}" class="btn btn-primary">
-                    <i class="bi bi-chat-text me-1"></i> Write an answer
+                    <i class="bi bi-chat-text me-1"></i> {% trans 'Write an answer' %}
                 </a>
             </div>
 
-            <div class="section-heading">{{ question.answers.count }} Answer{{ question.answers.count|pluralize }}</div>
+            <div class="section-heading">{{ question.answers.count }} {% trans 'answers' %}</div>
 
             <div class="d-flex flex-column gap-3">
                 {% for answer in question.answers.all %}
@@ -76,7 +77,7 @@
                         {% if answer.is_solution %}
                             <div class="mb-2">
                                 <span class="solved-badge"><i
-                                        class="bi bi-check-circle-fill"></i> Solution</span>
+                                        class="bi bi-check-circle-fill"></i> {% trans 'Solution' %}</span>
                             </div>
                         {% endif %}
                         <div class="d-flex gap-3">
@@ -102,7 +103,7 @@
                 {% empty %}
                     <div class="card p-4 text-center text-muted">
                         <i class="bi bi-chat-dots" style="font-size:2rem; color: var(--border);"></i>
-                        <p class="mt-2 mb-0">No answers yet. Be the first to answer!</p>
+                        <p class="mt-2 mb-0">{% trans 'No answers yet. Be the first to answer!' %}</p>
                     </div>
                 {% endfor %}
             </div>

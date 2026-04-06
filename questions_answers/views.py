@@ -8,6 +8,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.template.defaultfilters import striptags
 from django.templatetags.static import static
 from django.urls import reverse_lazy, reverse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, RedirectView, TemplateView
 from martor.templatetags.martortags import safe_markdown
 
@@ -123,7 +124,7 @@ class DeleteQuestion(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('index')
     extra_context = {
-        'entity_name': 'your question'
+        'entity_name': _('your question')
     }
 
     def get_queryset(self):
@@ -162,7 +163,7 @@ class UpdateAnswer(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         if form.instance.is_solution:
-            raise ValidationError('Answer marked as solution cannot be modified')
+            raise ValidationError(_('Answer marked as solution cannot be modified'))
         return super().form_valid(form)
 
     def get_queryset(self):
@@ -174,12 +175,12 @@ class DeleteAnswer(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('index')
     extra_context = {
-        'entity_name': 'your answer'
+        'entity_name': _('your answer')
     }
 
     def form_valid(self, form):
         if form.instance.is_solution:
-            raise ValidationError('Answer marked as solution cannot be modified')
+            raise ValidationError(_('Answer marked as solution cannot be modified'))
         return super().form_valid(form)
 
     def get_queryset(self):
@@ -205,7 +206,7 @@ class CreateVote(LoginRequiredMixin, CreateView):
         form.instance.content_type = ContentType.objects.get_for_model(self.vote_model)
         form.instance.user = self.request.user
         if form.instance.content_object.user == form.instance.user:
-            raise PermissionDenied("You can't vote for yourself")
+            raise PermissionDenied(_("You can't vote for yourself"))
         try:
             return super().form_valid(form)
         except IntegrityError:

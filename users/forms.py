@@ -2,18 +2,19 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from django.core.validators import FileExtensionValidator
+from django.utils.translation import gettext_lazy as _
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(label='Username or e-mail')
-    password = forms.CharField(label='Password', widget=forms.PasswordInput())
+    username = forms.CharField(label=_('Username or e-mail'))
+    password = forms.CharField(label=_('Password'), widget=forms.PasswordInput())
 
 
 class SignupUserForm(UserCreationForm):
-    username = forms.CharField(label='Username')
-    email = forms.EmailField(label='E-mail')
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput())
-    password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput())
+    username = forms.CharField(label=_('Username'))
+    email = forms.EmailField(label=_('E-mail'))
+    password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput())
+    password2 = forms.CharField(label=_('Repeat password'), widget=forms.PasswordInput())
 
     class Meta:
         model = get_user_model()
@@ -22,15 +23,15 @@ class SignupUserForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data['email']
         if get_user_model().objects.filter(email=email).exists():
-            raise forms.ValidationError('This email is already in use')
+            raise forms.ValidationError(_('This email is already in use'))
         return email
 
 
 class UpdateProfileForm(forms.ModelForm):
-    username = forms.CharField(label='Username')
-    email = forms.EmailField(label='E-mail', disabled=True)
+    username = forms.CharField(label=_('Username'))
+    email = forms.EmailField(label=_('E-mail'), disabled=True)
     photo = forms.ImageField(
-        label='Profile avatar',
+        label=_('Profile avatar'),
         required=False,
         validators=[FileExtensionValidator(
             allowed_extensions=['png', 'jpg', 'jpeg', 'gif', 'webp']
@@ -43,6 +44,6 @@ class UpdateProfileForm(forms.ModelForm):
 
 
 class PasswordChangeProfileForm(PasswordChangeForm):
-    old_password = forms.CharField(label='Old password', widget=forms.PasswordInput())
-    new_password1 = forms.CharField(label='New password', widget=forms.PasswordInput())
-    new_password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput())
+    old_password = forms.CharField(label=_('Old password'), widget=forms.PasswordInput())
+    new_password1 = forms.CharField(label=_('New password'), widget=forms.PasswordInput())
+    new_password2 = forms.CharField(label=_('Repeat password'), widget=forms.PasswordInput())

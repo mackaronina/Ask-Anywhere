@@ -1,9 +1,10 @@
+{% load i18n %}
 {% autoescape off %}
-    Hi {{ user.get_username }},
+    {% blocktrans %}Hi {{ user.get_username }},{% endblocktrans %}
 
-    You're receiving this email because you registered on {{ site_name }}
-    Please click the link below to activate your account:
+    {% blocktrans %}You're receiving this email because you registered on {{ site_name }}{% endblocktrans %}
+    {% trans 'Please click the link below to activate your account:' %}
     {{ protocol }}://{{ domain }}{% url 'users:confirm_email_done' uidb64=uid token=token %}
 
-    The {{ site_name }} team
+    {% blocktrans %}The {{ site_name }} team{% endblocktrans %}
 {% endautoescape %}
