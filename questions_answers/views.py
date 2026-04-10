@@ -1,3 +1,5 @@
+from logging import getLogger
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
@@ -17,6 +19,8 @@ from questions_answers.forms import CreateUpdateQuestionForm, CreateUpdateAnswer
     SearchQuestionsForm, CreateVoteForm
 from questions_answers.models import Question, Answer, Vote
 from questions_answers.utils import generate_ai_answer_text
+
+log = getLogger(__name__)
 
 
 class Index(TemplateView):
@@ -104,8 +108,8 @@ class CreateQuestion(LoginRequiredMixin, CreateView):
                 )
                 answer = Answer(text=answer_text, user=ai_user, question=self.object)
                 answer.save()
-            except Exception as e:
-                print(e)
+            except:
+                log.error('Exception while generating ai helper answer', exc_info=True)
         return response
 
 
@@ -134,6 +138,7 @@ class DeleteQuestion(LoginRequiredMixin, DeleteView):
 class RandomQuestion(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         random_question = Question.objects.order_by('?').first()
+        log.debug(f'Random question: {random_question}')
         if random_question is None:
             return reverse('questions_index')
         return random_question.get_absolute_url()

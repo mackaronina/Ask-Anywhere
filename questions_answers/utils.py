@@ -1,6 +1,10 @@
+from logging import getLogger
+
 import requests
 
 from AskAnywhere import settings
+
+log = getLogger(__name__)
 
 
 def generate_ai_answer_text(question_title: str, question_text: str) -> str:
@@ -23,4 +27,6 @@ def generate_ai_answer_text(question_title: str, question_text: str) -> str:
         ]
     }
     response = requests.post(link, json=data, headers=headers, timeout=settings.CLOUDFLARE_TIMEOUT_SECONDS)
+    log.debug(f'Cloudflare API request: {data}')
+    log.debug(f'Cloudflare API response: {response.json()}')
     return response.json()['result']['response']

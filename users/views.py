@@ -1,3 +1,5 @@
+from logging import getLogger
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordChangeDoneView, \
@@ -18,6 +20,8 @@ from questions_answers.models import Question, Answer
 from users.forms import LoginForm, SignupUserForm, UpdateProfileForm, PasswordChangeProfileForm
 from users.tokens import email_confirmation_token
 from users.utils import upload_image_to_imgbb
+
+log = getLogger(__name__)
 
 
 class LoginUser(LoginView):
@@ -46,6 +50,7 @@ class SignupUser(CreateView):
             })
             email = EmailMessage(subject=_('Activate your account'), body=message, to=[user.email])
             email.send()
+            log.info(f'Sent confirmation email to {user.email}')
         return super().form_valid(form)
 
 
@@ -64,8 +69,10 @@ class ConfirmEmailDone(View):
                 user.save()
                 return render(request, 'users/confirm_email_done.html')
             else:
+                log.warning(f'Failed to check confirmation token for user {user.pk}')
                 return render(request, 'users/confirm_email_invalid.html')
         except (TypeError, ValueError, OverflowError, user_model.DoesNotExist):
+            log.exception('Exception while email confirmation', exc_info=True)
             return render(request, 'users/confirm_email_invalid.html')
 
 
