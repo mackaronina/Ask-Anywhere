@@ -1,11 +1,13 @@
 from django.urls import path, include
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie
 
 from questions_answers import views
 from questions_answers.models import Question, Answer
 from questions_answers.views import RandomQuestion, CreateQuestion
 
 urlpatterns = [
-    path('', views.Index.as_view(), name='index'),
+    path('', cache_page(60)(vary_on_cookie(views.Index.as_view())), name='index'),
     path('questions/', include([
         path('', views.QuestionsIndex.as_view(), name='questions_index'),
         path('random/', RandomQuestion.as_view(), name='random_question'),
