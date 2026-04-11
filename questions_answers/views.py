@@ -126,7 +126,7 @@ class UpdateQuestion(LoginRequiredMixin, UpdateView):
 class DeleteQuestion(LoginRequiredMixin, DeleteView):
     model = Question
     template_name = 'confirm_delete.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('questions_index')
     extra_context = {
         'entity_name': _('your question')
     }
@@ -178,18 +178,20 @@ class UpdateAnswer(LoginRequiredMixin, UpdateView):
 class DeleteAnswer(LoginRequiredMixin, DeleteView):
     model = Answer
     template_name = 'confirm_delete.html'
-    success_url = reverse_lazy('index')
     extra_context = {
         'entity_name': _('your answer')
     }
 
     def form_valid(self, form):
-        if form.instance.is_solution:
+        if self.object.is_solution:
             raise ValidationError(_('Answer marked as solution cannot be modified'))
         return super().form_valid(form)
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+    def get_success_url(self):
+        return self.object.question.get_absolute_url()
 
 
 class MarkAnswer(LoginRequiredMixin, UpdateView):
