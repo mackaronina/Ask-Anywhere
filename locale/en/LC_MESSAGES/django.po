@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-06 06:30+0300\n"
+"POT-Creation-Date: 2026-04-11 10:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -252,19 +252,19 @@ msgstr ""
 msgid "Update your question below."
 msgstr ""
 
-#: .\questions_answers\views.py:127
+#: .\questions_answers\views.py:131
 msgid "your question"
 msgstr ""
 
-#: .\questions_answers\views.py:166 .\questions_answers\views.py:183
+#: .\questions_answers\views.py:171 .\questions_answers\views.py:188
 msgid "Answer marked as solution cannot be modified"
 msgstr ""
 
-#: .\questions_answers\views.py:178
+#: .\questions_answers\views.py:183
 msgid "your answer"
 msgstr ""
 
-#: .\questions_answers\views.py:209
+#: .\questions_answers\views.py:214
 msgid "You can't vote for yourself"
 msgstr ""
 
@@ -311,39 +311,47 @@ msgstr ""
 msgid "This action cannot be undone."
 msgstr ""
 
-#: .\users\forms.py:9
+#: .\users\forms.py:10
 msgid "Username or e-mail"
 msgstr ""
 
-#: .\users\forms.py:10 .\users\forms.py:16
+#: .\users\forms.py:11 .\users\forms.py:17
 msgid "Password"
 msgstr ""
 
-#: .\users\forms.py:14 .\users\forms.py:31
+#: .\users\forms.py:15 .\users\forms.py:34
 msgid "Username"
 msgstr ""
 
-#: .\users\forms.py:15 .\users\forms.py:32
+#: .\users\forms.py:16 .\users\forms.py:35
 msgid "E-mail"
 msgstr ""
 
-#: .\users\forms.py:17 .\users\forms.py:49
+#: .\users\forms.py:18 .\users\forms.py:52
 msgid "Repeat password"
 msgstr ""
 
-#: .\users\forms.py:26
+#: .\users\forms.py:19
+msgid "Captcha"
+msgstr ""
+
+#: .\users\forms.py:20
+msgid "Type the characters from the image above"
+msgstr ""
+
+#: .\users\forms.py:29
 msgid "This email is already in use"
 msgstr ""
 
-#: .\users\forms.py:34
+#: .\users\forms.py:37
 msgid "Profile avatar"
 msgstr ""
 
-#: .\users\forms.py:47
+#: .\users\forms.py:50
 msgid "Old password"
 msgstr ""
 
-#: .\users\forms.py:48
+#: .\users\forms.py:51
 msgid "New password"
 msgstr ""
 
@@ -572,10 +580,10 @@ msgstr ""
 msgid "No questions yet."
 msgstr ""
 
-#: .\users\views.py:47
+#: .\users\views.py:51
 msgid "Activate your account"
 msgstr ""
 
-#: .\users\views.py:134
+#: .\users\views.py:141
 msgid "your account"
 msgstr ""

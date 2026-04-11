@@ -400,3 +400,71 @@ a:hover {
     background: var(--orange);
     border-radius: 3px;
 }
+
+.captcha {
+    display: block;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+}
+
+input[type="file"]::file-selector-button {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--orange);
+    background: var(--orange-light);
+    border: 1px solid #FED7AA;
+    border-radius: 6px;
+    padding: 3px 12px;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: #FED7AA;
+}
+
+.lang-switcher {
+    position: relative;
+}
+
+.lang-switcher select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    padding: 0.3rem 2rem 0.3rem 0.65rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.15s;
+    display: block;
+    width: auto;
+}
+
+.lang-switcher select:hover {
+    color: var(--orange);
+}
+
+.lang-switcher select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.lang-switcher::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--text-muted);
+}

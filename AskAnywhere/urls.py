@@ -23,5 +23,6 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('martor/', include('martor.urls')),
-    path('i18n/', include('django.conf.urls.i18n'))
+    path('i18n/', include('django.conf.urls.i18n')),
+    path('captcha/', include('captcha.urls')),
 ]

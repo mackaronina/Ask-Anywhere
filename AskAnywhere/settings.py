@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'martor',
     'taggit',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -225,3 +226,5 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+
+CAPTCHA_FONT_SIZE = 50

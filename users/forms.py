@@ -1,3 +1,4 @@
+from captcha.fields import CaptchaField, CaptchaTextInput
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
@@ -15,6 +16,8 @@ class SignupUserForm(UserCreationForm):
     email = forms.EmailField(label=_('E-mail'))
     password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput())
     password2 = forms.CharField(label=_('Repeat password'), widget=forms.PasswordInput())
+    captcha = CaptchaField(label=_('Captcha'), widget=CaptchaTextInput(
+        attrs={'placeholder': _('Type the characters from the image above')}))
 
     class Meta:
         model = get_user_model()
