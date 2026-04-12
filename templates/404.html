@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6 text-center py-5">
+            <div class="mb-4"
+                 style="font-size:7rem; font-weight:800; line-height:1; color:var(--orange); letter-spacing:-4px;">
+                404
+            </div>
+            <h1 style="font-weight:800; font-size:1.6rem; letter-spacing:-0.5px; margin-bottom:0.75rem;">
+                {% trans 'Page not found' %}
+            </h1>
+            <p class="text-muted mb-5" style="font-size:0.95rem; max-width:400px; margin-inline:auto; line-height:1.7;">
+                {% trans "The page you are looking for doesn't exist or has been moved. Check the URL and try again." %}
+            </p>
+            <button onclick="history.back();" class="btn btn-primary px-4 py-2">
+                {% trans 'Go back' %}
+            </button>
+        </div>
+    </div>
+{% endblock %}

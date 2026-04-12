@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-11 10:16+0300\n"
+"POT-Creation-Date: 2026-04-12 10:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -256,16 +256,61 @@ msgstr ""
 msgid "your question"
 msgstr ""
 
-#: .\questions_answers\views.py:171 .\questions_answers\views.py:188
+#: .\questions_answers\views.py:171 .\questions_answers\views.py:187
 msgid "Answer marked as solution cannot be modified"
 msgstr ""
 
-#: .\questions_answers\views.py:183
+#: .\questions_answers\views.py:182
 msgid "your answer"
 msgstr ""
 
-#: .\questions_answers\views.py:214
+#: .\questions_answers\views.py:216
 msgid "You can't vote for yourself"
+msgstr ""
+
+#: .\templates\400.html:12
+msgid "Bad request"
+msgstr ""
+
+#: .\templates\400.html:15
+msgid ""
+"The server couldn't understand your request. Please try again or return to "
+"the homepage."
+msgstr ""
+
+#: .\templates\400.html:18 .\templates\403.html:18 .\templates\404.html:18
+#: .\templates\500.html:18
+msgid "Go back"
+msgstr ""
+
+#: .\templates\403.html:12
+msgid "Access denied"
+msgstr ""
+
+#: .\templates\403.html:15
+msgid ""
+"You don't have permission to view this page. Log in with an account that has "
+"access."
+msgstr ""
+
+#: .\templates\404.html:12
+msgid "Page not found"
+msgstr ""
+
+#: .\templates\404.html:15
+msgid ""
+"The page you are looking for doesn't exist or has been moved. Check the URL "
+"and try again."
+msgstr ""
+
+#: .\templates\500.html:12
+msgid "Something went wrong"
+msgstr ""
+
+#: .\templates\500.html:15
+msgid ""
+"An unexpected error occurred on our end. We're working on it — please try "
+"again in a moment."
 msgstr ""
 
 #: .\templates\base.html:29
