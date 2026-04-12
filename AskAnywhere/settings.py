@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 import logging
 import os
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -27,7 +28,7 @@ load_dotenv()
 SECRET_KEY = 'django-insecure--pu#*!e2du@1xh3@(7%8n7rce*ryd5ll4gr#%dt3u*$lkq2^el'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -232,3 +233,5 @@ CACHES = {
 }
 
 CAPTCHA_FONT_SIZE = 50
+if 'test' in sys.argv:
+    CAPTCHA_TEST_MODE = True
