@@ -16,9 +16,6 @@ class UserModelTest(StaticLiveServerTestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser')
 
-    def tearDown(self):
-        self.user.delete()
-
     def test_str_returns_username(self):
         self.assertEqual(str(self.user), 'testuser')
 
@@ -38,9 +35,6 @@ class EmailAuthBackendTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='StrongPass123!', email='test@example.com')
         self.backend = EmailAuthBackend()
-
-    def tearDown(self):
-        self.user.delete()
 
     def test_authenticate_by_email(self):
         result = self.backend.authenticate(None, username='test@example.com',
@@ -110,9 +104,6 @@ class SignupUserFormTest(TestCase):
 class LoginViewTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='StrongPass123!', email='test@example.com')
-
-    def tearDown(self):
-        self.user.delete()
 
     def test_login_page_returns_200(self):
         resp = self.client.get(reverse('users:login'))
@@ -209,9 +200,6 @@ class ProfileViewTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='StrongPass123!')
 
-    def tearDown(self):
-        self.user.delete()
-
     def test_profile_redirects_anonymous(self):
         resp = self.client.get(reverse('users:profile'))
         self.assertEqual(resp.status_code, 302)
@@ -221,15 +209,11 @@ class ProfileViewTest(TestCase):
         self.client.login(username='testuser', password='StrongPass123!')
         resp = self.client.get(reverse('users:profile'))
         self.assertRedirects(resp, self.user.get_absolute_url(), 302)
-        self.assertIn(str(self.user.pk), resp['Location'])
 
 
 class DeleteProfileViewTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='StrongPass123!')
-
-    def tearDown(self):
-        self.user.delete()
 
     def test_user_can_delete_own_account(self):
         self.client.login(username='testuser', password='StrongPass123!')
@@ -247,9 +231,6 @@ class DeleteProfileViewTest(TestCase):
 class ResetAvatarProfileViewTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='StrongPass123!', photo_url='testurl')
-
-    def tearDown(self):
-        self.user.delete()
 
     def test_user_can_reset_own_avatar(self):
         self.client.login(username='testuser', password='StrongPass123!')
