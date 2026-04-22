@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError, PermissionDenied
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.db.models import Count, Q, Model
 from django.shortcuts import redirect, get_object_or_404
 from django.template.defaultfilters import striptags
@@ -215,7 +215,8 @@ class CreateVote(LoginRequiredMixin, CreateView):
         if form.instance.content_object.user == form.instance.user:
             raise PermissionDenied(_("You can't vote for yourself"))
         try:
-            return super().form_valid(form)
+            with transaction.atomic():
+                return super().form_valid(form)
         except IntegrityError:
             vote = get_object_or_404(Vote, object_id=self.kwargs.get('pk'), user=self.request.user)
             vote.is_positive = form.cleaned_data['is_positive']
