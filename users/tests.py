@@ -3,15 +3,17 @@ from urllib.parse import urlparse
 
 from django.contrib.auth import get_user_model
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from AskAnywhere.settings import BASE_DIR
 from users.authentication import EmailAuthBackend
 from users.forms import SignupUserForm
 
 User = get_user_model()
 
 
+@override_settings(STATIC_ROOT=BASE_DIR / 'static')
 class UserModelTest(StaticLiveServerTestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser')
