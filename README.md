@@ -4,7 +4,7 @@ This web application is a platform for publishing questions and answers on vario
 language and the Django framework. Authorized users of the site can ask and answer questions, vote for their favorite
 questions and answers. Question authors can mark answers as solutions to help other people. The questions you are
 looking for can be found on the website by term and tags. The platform also has an AI bot that automatically answers
-new questions
+new questions. Try it here: https://ask-anywhere.onrender.com
 
 ### Demonstration
 
@@ -35,10 +35,16 @@ new questions
 * Start the PostgreSQL database using any method. With DEBUG enabled, the SQLite database will be used.
 * Edit file example.env and fill it with your data including the data for connecting to the database, then rename it to
   .env. This file contains all the settings for the web application
-* Run docker container with commands:  
+* Commands to run without docker:  
+  `pip install -r requirements.txt`  
+  `python manage.py makemigrations`  
+  `python manage.py migrate`  
+  `python manage.py collectstatic`  
+  `python manage.py test # Run the standard tests. These should all pass.`  
+  `python manage.py createsuperuser # Create a superuser`  
+  `python manage.py runserver`  
+  Open tab to http://127.0.0.1:8000 to see the main site
+* Commands to run with docker:  
   `docker build -t image .`  
-  `docker run -p 8000:8000 image`
-
-Replace 8000 with your port if you are using a different port. Don't forget to change the port in the dockerfile.
-After this, the application will be available at http://localhost:8000. Make sure localhost is in the ALLOWED_HOSTS
-list.
+  `docker run -p 8000:8000 image`  
+  After this, the application will be available at http://localhost:8000
