@@ -8,7 +8,7 @@
     --bg: #FAFAFA;
 }
 
-* {
+*:not([class^='ace_']) {
     font-family: 'Nunito', sans-serif;
 }
 
